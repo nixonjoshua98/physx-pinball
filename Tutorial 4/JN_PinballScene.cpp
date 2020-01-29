@@ -33,7 +33,7 @@ void JN_PinballScene::CustomInit()
 
 	physics_scene->setSimulationEventCallback(my_callback);
 
-	plane = new Plane();
+	plane = new Actors::Plane();
 	plane->Color(PxVec3(210.f / 255.f, 210.f / 255.f, 210.f / 255.f));
 	Add(plane);
 
@@ -41,13 +41,31 @@ void JN_PinballScene::CustomInit()
 	cloth->Color(color_palette[2]);
 	Add(cloth);
 
-	box = new Box(PxTransform(PxVec3(0.f, 2.f, 0.f)), PxVec3(2.f, 2.f, 2.f));
-	box->Color(color_palette[3]);
-	Add(box);
+	Actors::Box* b = nullptr;
 
-	Box* b = new Box(PxTransform(PxVec3(0.f, 50.f, 0.f)), PxVec3(2.f, 2.f, 2.f));
-	b->Color(color_palette[3]);
-	Add(b);
+	float x = -10.0f;
+	float z = -10.0f;
+	float y = 0.0f;
+
+	for (int i = 0; i < 5; ++i)
+	{
+		x = -10.0f;
+
+		for (int j = 0; j < 5; ++j)
+		{
+			x += 1.0f;
+
+			b = new Actors::Box({ x, y, z });
+
+			b->Color(color_palette[3]);
+
+			Add(b);
+		}
+
+		z += 1.0f;
+
+		y += 1.0f;
+	}
 
 	// Setting custom cloth parameters
 	((PxCloth*)cloth->Get())->setStretchConfig(PxClothFabricPhaseType::eBENDING, PxClothStretchConfig(1.f));

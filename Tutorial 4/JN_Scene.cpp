@@ -16,7 +16,6 @@ void JN_Scene::Init()
 	// Set number of CPU threads
 	if (!scene_desc.cpuDispatcher)
 	{
-		// TODO: Multi-threaded!
 		scene_desc.cpuDispatcher = PxDefaultCpuDispatcherCreate(1);
 	}
 
