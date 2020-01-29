@@ -4,6 +4,8 @@
 #include "Extras\Renderer.h"
 #include "Extras\HUD.h"
 
+#include "JN_PinballScene.h"
+
 namespace VisualDebugger
 {
 	using namespace physx;
@@ -38,7 +40,9 @@ namespace VisualDebugger
 
 	///simulation objects
 	Camera* camera;
-	PhysicsEngine::MyScene* scene;
+
+	JN_PinballScene* scene;
+
 	PxReal delta_time = 1.f/60.f;
 	PxReal gForceStrength = 20;
 	RenderMode render_mode = NORMAL;
@@ -52,7 +56,9 @@ namespace VisualDebugger
 	{
 		///Init PhysX
 		PhysicsEngine::PxInit();
-		scene = new PhysicsEngine::MyScene();
+
+		scene = new JN_PinballScene();
+
 		scene->Init();
 
 		///Init renderer
@@ -171,11 +177,13 @@ namespace VisualDebugger
 	//user defined keyboard handlers
 	void UserKeyPress(int key)
 	{
-		switch (toupper(key))
+		char k = toupper(key);
+
+		switch (k)
 		{
-		//implement your own
+			//implement your own
 		case 'R':
-			scene->ExampleKeyPressHandler();
+			scene->OnKeyPressed(k);
 			break;
 		default:
 			break;
@@ -184,11 +192,13 @@ namespace VisualDebugger
 
 	void UserKeyRelease(int key)
 	{
-		switch (toupper(key))
+		char k = toupper(key);
+
+		switch (k)
 		{
 		//implement your own
 		case 'R':
-			scene->ExampleKeyReleaseHandler();
+			scene->OnKeyReleased(k);
 			break;
 		default:
 			break;

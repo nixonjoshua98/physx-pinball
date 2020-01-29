@@ -365,11 +365,15 @@ namespace PhysicsEngine
 			PxVec3* color = ((UserData*)shapes[i]->userData)->color;
 			sactor_color_orig.push_back(*color);
 			*color += PxVec3(.2f, .2f, .2f);
+
+			std::cout << color->x << " " << color->y << " " << color->z << "\n";
 		}
 	}
 
 	void Scene::HighlightOff(PxRigidDynamic* actor)
 	{
+		std::cout << "actor_colour size: " << sactor_color_orig.size() << "\n";
+
 		//restore the original color
 		std::vector<PxShape*> shapes(actor->getNbShapes());
 		actor->getShapes((PxShape**)&shapes.front(), (PxU32)shapes.size());
