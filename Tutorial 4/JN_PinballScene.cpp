@@ -28,7 +28,7 @@ void JN_PinballScene::CustomInit()
 
 	GetMaterial()->setDynamicFriction(.2f);
 
-	///Initialise and set the customised event callback
+	// Initialise and set the customised event callback
 	my_callback = new MySimulationEventCallback();
 
 	physics_scene->setSimulationEventCallback(my_callback);
@@ -45,17 +45,16 @@ void JN_PinballScene::CustomInit()
 
 	float x = -10.0f;
 	float z = -10.0f;
-	float y = 0.0f;
 
 	for (int i = 0; i < 5; ++i)
 	{
-		x = -10.0f;
+		x = -5.0f;
 
 		for (int j = 0; j < 5; ++j)
 		{
-			x += 1.0f;
+			x += 0.9f;
 
-			b = new Actors::Box({ x, y, z });
+			b = new Actors::Box({ x, 5.0f, z});
 
 			b->Color(color_palette[3]);
 
@@ -63,8 +62,6 @@ void JN_PinballScene::CustomInit()
 		}
 
 		z += 1.0f;
-
-		y += 1.0f;
 	}
 
 	// Setting custom cloth parameters
