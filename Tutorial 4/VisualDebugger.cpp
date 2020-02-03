@@ -61,7 +61,7 @@ namespace VisualDebugger
 
 		scene->Init();
 
-		///Init renderer
+		// Init renderer
 		Renderer::BackgroundColor(PxVec3(150.f/255.f,150.f/255.f,150.f/255.f));
 		Renderer::SetRenderDetail(40);
 		Renderer::InitWindow(window_name, width, height);
@@ -69,10 +69,11 @@ namespace VisualDebugger
 
 		camera = new Camera(PxVec3(0.0f, 5.0f, 15.0f), PxVec3(0.f,-.1f,-1.f), 5.f);
 
-		//initialise HUD
+		// Initialise HUD
 		HUDInit();
 
-		///Assign callbacks
+		// Assign callbacks
+
 		//render
 		glutDisplayFunc(RenderScene);
 
@@ -81,7 +82,7 @@ namespace VisualDebugger
 		glutSpecialFunc(KeySpecial);
 		glutKeyboardUpFunc(KeyRelease);
 
-		//mouse
+		// Mouse
 		glutMouseFunc(mouseCallback);
 		glutMotionFunc(motionCallback);
 
@@ -132,7 +133,7 @@ namespace VisualDebugger
 		glutMainLoop(); 
 	}
 
-	//Render the scene and perform a single simulation step
+	// Render the scene and perform a single simulation step
 	void RenderScene()
 	{
 		//handle pressed keys
@@ -179,15 +180,7 @@ namespace VisualDebugger
 	{
 		char k = toupper(key);
 
-		switch (k)
-		{
-			//implement your own
-		case 'R':
-			scene->OnKeyPressed(k);
-			break;
-		default:
-			break;
-		}
+		scene->OnKeyPressed(k);
 	}
 
 	void UserKeyRelease(int key)
@@ -215,22 +208,22 @@ namespace VisualDebugger
 		switch (toupper(key))
 		{
 		case 'W':
-			camera->MoveForward(delta_time);
+			camera->MoveForward(delta_time * 2.0f);
 			break;
 		case 'S':
-			camera->MoveBackward(delta_time);
+			camera->MoveBackward(delta_time * 2.0f);
 			break;
 		case 'A':
-			camera->MoveLeft(delta_time);
+			camera->MoveLeft(delta_time * 2.0f);
 			break;
 		case 'D':
-			camera->MoveRight(delta_time);
+			camera->MoveRight(delta_time * 2.0f);
 			break;
 		case 'Q':
-			camera->MoveUp(delta_time);
+			camera->MoveUp(delta_time * 2.0f);
 			break;
 		case 'Z':
-			camera->MoveDown(delta_time);
+			camera->MoveDown(delta_time * 2.0f);
 			break;
 		default:
 			break;

@@ -23,10 +23,10 @@ public:
 	void Update(PxReal delta);
 
 	// User defined update step
-	virtual void CustomUpdate() {}
+	virtual void CustomUpdate(PxReal delta) {}
 
 	// Add actor to the scene
-	void Add(Actor* actor);
+	void Add(Actors::Actor* actor);
 
 	// Get the PxScene object
 	PxScene* Get();

@@ -4,7 +4,7 @@
 #include "JN_PinballScene.h"
 
 
-JN_PinballScene::JN_PinballScene()
+JN_PinballScene::JN_PinballScene() : my_callback(0), plane(0)
 {
 
 }
@@ -37,45 +37,41 @@ void JN_PinballScene::CustomInit()
 	plane->Color(PxVec3(210.f / 255.f, 210.f / 255.f, 210.f / 255.f));
 	Add(plane);
 
-	cloth = new Cloth(PxTransform(PxVec3(-4.f, 9.f, 0.f)), PxVec2(8.f, 8.f), 40, 40);
-	cloth->Color(color_palette[2]);
-	Add(cloth);
+	std::vector<Actors::StaticBox*> boxes = {
+		new Actors::StaticBox({ 5.0f, 0.5f, 0.0f }, { 0.5f, 0.5f, 10.f }),
+		new Actors::StaticBox({ -5.0f, 0.5f, 0.0f }, { 0.5f, 0.5f, 10.f }),
 
-	Actors::Box* b = nullptr;
+		 new Actors::StaticBox({ 0.0f, 0.5f, 10.5f }, { 5.5f, 0.5f, 0.5f }),
+		 new Actors::StaticBox({ 0.0f, 0.5f, -10.5f}, { 5.5f, 0.5f, 0.5f }),
+	};
 
-	float x = -10.0f;
-	float z = -10.0f;
-
-	for (int i = 0; i < 5; ++i)
+	for (auto b : boxes)
 	{
-		x = -5.0f;
+		b->Color(PxVec3(55.f / 255.f, 55.f / 255.f, 55.f / 255.f));
 
-		for (int j = 0; j < 5; ++j)
-		{
-			x += 0.9f;
-
-			b = new Actors::Box({ x, 5.0f, z});
-
-			b->Color(color_palette[3]);
-
-			Add(b);
-		}
-
-		z += 1.0f;
+		Add(b);
 	}
 
-	// Setting custom cloth parameters
-	((PxCloth*)cloth->Get())->setStretchConfig(PxClothFabricPhaseType::eBENDING, PxClothStretchConfig(1.f));
+	ball = new Actors::Sphere({ 0.0f, 0.5f, 0.0f }, 0.5f);
+
+	ball->Color({ 0.0f, 0.0f, 0.0f });
+
+	Add(ball);
 }
 
-void JN_PinballScene::CustomUpdate()
+void JN_PinballScene::CustomUpdate(PxReal delta)
 {
 
 }
 
 void JN_PinballScene::OnKeyPressed(char key)
 {
-	std::cout << key << " pressed\n";
+	switch (key)
+	{
+	case 'H':
+		ball->AddForce({ 0.0f, 0.0f, 1.0f });
+		break;
+	}
 }
 
 void JN_PinballScene::OnKeyReleased(char key)

@@ -45,7 +45,7 @@ void JN_Scene::Update(PxReal delta)
 {
 	if (!is_paused)
 	{
-		CustomUpdate();
+		CustomUpdate(delta);
 
 		physics_scene->simulate(delta);
 
@@ -53,7 +53,7 @@ void JN_Scene::Update(PxReal delta)
 	}
 }
 
-void JN_Scene::Add(Actor* actor)
+void JN_Scene::Add(Actors::Actor* actor)
 {
 	physics_scene->addActor(*actor->Get());
 }

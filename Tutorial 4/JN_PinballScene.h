@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "JN_Scene.h"
 
 #include "MyPhysicsEngine.h"
@@ -23,11 +22,11 @@ public:
 
 private:
 	Actors::Plane* plane;
+	Actors::Sphere* ball;
 
-	Cloth* cloth;
 	MySimulationEventCallback* my_callback;
 
 	void CustomInit() override;
-	void CustomUpdate() override;
+	void CustomUpdate(PxReal delta) override;
 };
 
