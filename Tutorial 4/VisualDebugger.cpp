@@ -38,7 +38,7 @@ namespace VisualDebugger
 	void ToggleRenderMode();
 	void HUDInit();
 
-	///simulation objects
+	// Simulation objects
 	Camera* camera;
 
 	JN_PinballScene* scene;
@@ -54,7 +54,7 @@ namespace VisualDebugger
 	//Init the debugger
 	void Init(const char *window_name, int width, int height)
 	{
-		///Init PhysX
+		// Init PhysX
 		PhysicsEngine::PxInit();
 
 		scene = new JN_PinballScene();

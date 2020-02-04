@@ -44,6 +44,9 @@ namespace Actors
 		void SetKinematic(bool value, PxU32 index = -1);
 
 		void AddForce(PxVec3 force);
+
+		PxRigidBody* GetRigidBody();
+		PxRigidActor* GetRigidActor();
 	};
 
 	class StaticActor : public Actor

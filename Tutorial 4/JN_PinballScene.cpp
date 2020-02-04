@@ -4,7 +4,8 @@
 #include "JN_PinballScene.h"
 
 
-JN_PinballScene::JN_PinballScene() : my_callback(0), plane(0)
+
+JN_PinballScene::JN_PinballScene()
 {
 
 }
@@ -22,6 +23,34 @@ void JN_PinballScene::SetVisualisation()
 	physics_scene->setVisualizationParameter(PxVisualizationParameter::eCLOTH_SHEARING, 1.0f);
 }
 
+void JN_PinballScene::CreateFrame()
+{
+	const float LENGTH = 15.0f;
+	const float WIDTH = 8.0f;
+
+	std::vector<Actors::StaticBox*> boxes = {
+		new Actors::StaticBox({ WIDTH, 0.5f, 0.0f }, { 0.5f, 0.5f, LENGTH }), // Left
+		new Actors::StaticBox({ -WIDTH, 0.5f, 0.0f }, { 0.5f, 0.5f, LENGTH }), // Right
+
+		new Actors::StaticBox({ 0.0f, 0.5f, LENGTH + 0.5f}, {WIDTH + 0.5f, 0.5f, 0.5f }), // Bottom
+		new Actors::StaticBox({ 0.0f, 0.5f, -LENGTH - 0.5f }, { WIDTH + 0.5f, 0.5f, 0.5f }), // Top
+	};
+
+	for (auto b : boxes)
+	{
+		b->Color(PxVec3(55.f / 255.f, 55.f / 255.f, 55.f / 255.f));
+
+		Add(b);
+	}
+}
+
+void JN_PinballScene::CreatePaddles()
+{
+	paddle = new JN_Paddle();
+
+	Add(paddle->GetActor());
+}
+
 void JN_PinballScene::CustomInit()
 {
 	SetVisualisation();
@@ -33,30 +62,14 @@ void JN_PinballScene::CustomInit()
 
 	physics_scene->setSimulationEventCallback(my_callback);
 
-	plane = new Actors::Plane();
+	Actors::Plane* plane = new Actors::Plane();
 	plane->Color(PxVec3(210.f / 255.f, 210.f / 255.f, 210.f / 255.f));
 	Add(plane);
 
-	std::vector<Actors::StaticBox*> boxes = {
-		new Actors::StaticBox({ 5.0f, 0.5f, 0.0f }, { 0.5f, 0.5f, 10.f }),
-		new Actors::StaticBox({ -5.0f, 0.5f, 0.0f }, { 0.5f, 0.5f, 10.f }),
+	CreateFrame();
+	CreatePaddles();
 
-		 new Actors::StaticBox({ 0.0f, 0.5f, 10.5f }, { 5.5f, 0.5f, 0.5f }),
-		 new Actors::StaticBox({ 0.0f, 0.5f, -10.5f}, { 5.5f, 0.5f, 0.5f }),
-	};
-
-	for (auto b : boxes)
-	{
-		b->Color(PxVec3(55.f / 255.f, 55.f / 255.f, 55.f / 255.f));
-
-		Add(b);
-	}
-
-	ball = new Actors::Sphere({ 0.0f, 0.5f, 0.0f }, 0.5f);
-
-	ball->Color({ 0.0f, 0.0f, 0.0f });
-
-	Add(ball);
+	Add(new Actors::Sphere({ 0.0f, 0.5f, 0.0f }, 0.25f));
 }
 
 void JN_PinballScene::CustomUpdate(PxReal delta)
@@ -69,12 +82,15 @@ void JN_PinballScene::OnKeyPressed(char key)
 	switch (key)
 	{
 	case 'H':
-		ball->AddForce({ 0.0f, 0.0f, 1.0f });
+		paddle->Activate();
 		break;
 	}
 }
 
 void JN_PinballScene::OnKeyReleased(char key)
 {
-	std::cout << key << " released\n";
+	switch (key)
+	{
+
+	}
 }

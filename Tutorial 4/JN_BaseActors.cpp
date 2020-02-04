@@ -113,6 +113,16 @@ void DynamicActor::AddForce(PxVec3 force)
 	static_cast<PxRigidBody*>(Get())->addForce(force, PxForceMode::eIMPULSE);
 }
 
+PxRigidBody* Actors::DynamicActor::GetRigidBody()
+{
+	return static_cast<PxRigidBody*>(Get());
+}
+
+PxRigidActor* Actors::DynamicActor::GetRigidActor()
+{
+	return static_cast<PxRigidActor*>(Get());
+}
+
 StaticActor::StaticActor(const PxTransform & pose)
 {
 	actor = (PxActor*)GetPhysics()->createRigidStatic(pose);

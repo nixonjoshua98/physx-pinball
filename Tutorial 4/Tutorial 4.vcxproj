@@ -30,6 +30,7 @@
     <ClInclude Include="JN_BaseActors.h" />
     <ClInclude Include="JN_BasicActors.h" />
     <ClInclude Include="JN_Cloth.h" />
+    <ClInclude Include="JN_Paddle.h" />
     <ClInclude Include="JN_PinballScene.h" />
     <ClInclude Include="JN_Scene.h" />
     <ClInclude Include="MyPhysicsEngine.h" />
@@ -42,6 +43,7 @@
     <ClCompile Include="Extras\Renderer.cpp" />
     <ClCompile Include="JN_BaseActors.cpp" />
     <ClCompile Include="JN_Cloth.cpp" />
+    <ClCompile Include="JN_Paddle.cpp" />
     <ClCompile Include="JN_PinballScene.cpp" />
     <ClCompile Include="JN_Scene.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />

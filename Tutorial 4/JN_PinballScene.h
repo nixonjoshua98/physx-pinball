@@ -4,8 +4,7 @@
 
 #include "MyPhysicsEngine.h"
 
-using namespace PhysicsEngine;
-
+#include "JN_Paddle.h"
 #include "JN_BasicActors.h"
 
 
@@ -21,10 +20,13 @@ public:
 	void OnKeyReleased(char key);
 
 private:
-	Actors::Plane* plane;
-	Actors::Sphere* ball;
+	JN_Paddle* paddle;
+
 
 	MySimulationEventCallback* my_callback;
+
+	void CreateFrame();
+	void CreatePaddles();
 
 	void CustomInit() override;
 	void CustomUpdate(PxReal delta) override;
