@@ -83,7 +83,7 @@ void JN_PinballScene::OnKeyPressed(int key)
 	{
 		// Space
 	case 32:
-		plunger->Activate(-100.0f);
+		plunger->Activate(-125.0f);
 		break;
 	}
 }
