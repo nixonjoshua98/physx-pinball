@@ -30,9 +30,10 @@
     <ClInclude Include="JN_BaseActors.h" />
     <ClInclude Include="JN_BasicActors.h" />
     <ClInclude Include="JN_Cloth.h" />
-    <ClInclude Include="JN_Paddle.h" />
     <ClInclude Include="JN_PinballScene.h" />
+    <ClInclude Include="JN_Plunger.h" />
     <ClInclude Include="JN_Scene.h" />
+    <ClInclude Include="JN_Trampoline.h" />
     <ClInclude Include="MyPhysicsEngine.h" />
     <ClInclude Include="PhysicsEngine.h" />
     <ClInclude Include="VisualDebugger.h" />
@@ -43,9 +44,10 @@
     <ClCompile Include="Extras\Renderer.cpp" />
     <ClCompile Include="JN_BaseActors.cpp" />
     <ClCompile Include="JN_Cloth.cpp" />
-    <ClCompile Include="JN_Paddle.cpp" />
     <ClCompile Include="JN_PinballScene.cpp" />
+    <ClCompile Include="JN_Plunger.cpp" />
     <ClCompile Include="JN_Scene.cpp" />
+    <ClCompile Include="JN_Trampoline.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
     <ClCompile Include="VisualDebugger.cpp" />
     <ClCompile Include="Tutorial 4.cpp" />

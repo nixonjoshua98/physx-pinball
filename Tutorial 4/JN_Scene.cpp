@@ -29,9 +29,8 @@ void JN_Scene::Init()
 		throw new Exception("Physics scene failed to be created.");
 
 	// Earth gravity: (0.0f, -9.81f, 0.0f)
-	physics_scene->setGravity(PxVec3(0.0f, 0.0f, 9.81f));
+	physics_scene->setGravity(PxVec3(0.0f, -9.81f, 0.0f));
 
-	// Call virtual init for child class initialisation
 	CustomInit();
 
 	is_paused = false;

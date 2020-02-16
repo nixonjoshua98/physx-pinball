@@ -110,7 +110,7 @@ void DynamicActor::SetKinematic(bool value, PxU32 index)
 
 void DynamicActor::AddForce(PxVec3 force)
 {
-	static_cast<PxRigidBody*>(Get())->addForce(force, PxForceMode::eIMPULSE);
+	Get()->is<PxRigidBody>()->addForce(force, PxForceMode::eIMPULSE);
 }
 
 PxRigidBody* Actors::DynamicActor::GetRigidBody()

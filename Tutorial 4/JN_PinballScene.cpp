@@ -5,7 +5,8 @@
 
 
 
-JN_PinballScene::JN_PinballScene()
+
+JN_PinballScene::JN_PinballScene(): plunger(0), my_callback(0)
 {
 
 }
@@ -21,19 +22,23 @@ void JN_PinballScene::SetVisualisation()
 	physics_scene->setVisualizationParameter(PxVisualizationParameter::eCLOTH_VERTICAL, 1.0f);
 	physics_scene->setVisualizationParameter(PxVisualizationParameter::eCLOTH_BENDING, 1.0f);
 	physics_scene->setVisualizationParameter(PxVisualizationParameter::eCLOTH_SHEARING, 1.0f);
+
+	// Joints
+	physics_scene->setVisualizationParameter(PxVisualizationParameter::eJOINT_LIMITS, 1.0f);
+	physics_scene->setVisualizationParameter(PxVisualizationParameter::eJOINT_LOCAL_FRAMES, 1.0f);
 }
 
 void JN_PinballScene::CreateFrame()
 {
-	const float LENGTH = 15.0f;
-	const float WIDTH = 8.0f;
-
 	std::vector<Actors::StaticBox*> boxes = {
-		new Actors::StaticBox({ WIDTH, 0.5f, 0.0f }, { 0.5f, 0.5f, LENGTH }), // Left
-		new Actors::StaticBox({ -WIDTH, 0.5f, 0.0f }, { 0.5f, 0.5f, LENGTH }), // Right
+		new Actors::StaticBox({ FRAME_WIDTH, 0.25f, 0.0f }, { 0.25f, 0.25f, FRAME_LENGTH }), // Left
+		new Actors::StaticBox({ -FRAME_WIDTH, 0.25f, 0.0f }, { 0.25f, 0.25f, FRAME_LENGTH }), // Right
 
-		new Actors::StaticBox({ 0.0f, 0.5f, LENGTH + 0.5f}, {WIDTH + 0.5f, 0.5f, 0.5f }), // Bottom
-		new Actors::StaticBox({ 0.0f, 0.5f, -LENGTH - 0.5f }, { WIDTH + 0.5f, 0.5f, 0.5f }), // Top
+		new Actors::StaticBox({ 0.0f, 0.25f, FRAME_LENGTH + 0.25f}, {FRAME_WIDTH + 0.25f, 0.25f, 0.25f }), // Bottom
+		new Actors::StaticBox({ 0.0f, 0.25f, -FRAME_LENGTH - 0.25f }, { FRAME_WIDTH + 0.25f, 0.25f, 0.25f }), // Top
+
+		// Plunger Pipe
+		new Actors::StaticBox({ 7.0f, 0.25f, 5.f }, { 0.25f, 0.25f, 10.0f })
 	};
 
 	for (auto b : boxes)
@@ -44,20 +49,12 @@ void JN_PinballScene::CreateFrame()
 	}
 }
 
-void JN_PinballScene::CreatePaddles()
-{
-	paddle = new JN_Paddle();
-
-	Add(paddle->GetActor());
-}
-
 void JN_PinballScene::CustomInit()
 {
 	SetVisualisation();
 
 	GetMaterial()->setDynamicFriction(.2f);
 
-	// Initialise and set the customised event callback
 	my_callback = new MySimulationEventCallback();
 
 	physics_scene->setSimulationEventCallback(my_callback);
@@ -67,9 +64,12 @@ void JN_PinballScene::CustomInit()
 	Add(plane);
 
 	CreateFrame();
-	CreatePaddles();
 
-	Add(new Actors::Sphere({ 0.0f, 0.5f, 0.0f }, 0.25f));
+	Actors::Sphere* ball = new Actors::Sphere({ 7.f, 0.25f, 14.f }, 0.25f);
+
+	Add(ball);
+
+	plunger = new JN_Plunger(this);
 }
 
 void JN_PinballScene::CustomUpdate(PxReal delta)
@@ -77,17 +77,18 @@ void JN_PinballScene::CustomUpdate(PxReal delta)
 
 }
 
-void JN_PinballScene::OnKeyPressed(char key)
+void JN_PinballScene::OnKeyPressed(int key)
 {
 	switch (key)
 	{
-	case 'H':
-		paddle->Activate();
+		// Space
+	case 32:
+		plunger->Activate(20.0f);
 		break;
 	}
 }
 
-void JN_PinballScene::OnKeyReleased(char key)
+void JN_PinballScene::OnKeyReleased(int key)
 {
 	switch (key)
 	{

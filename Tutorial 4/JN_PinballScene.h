@@ -4,8 +4,8 @@
 
 #include "MyPhysicsEngine.h"
 
-#include "JN_Paddle.h"
 #include "JN_BasicActors.h"
+#include "JN_Plunger.h"
 
 
 class JN_PinballScene : public JN_Scene
@@ -13,20 +13,21 @@ class JN_PinballScene : public JN_Scene
 public:
 	JN_PinballScene();
 
+	const float FRAME_LENGTH	= 15.0f;
+	const float FRAME_WIDTH		= 8.0f;
+
 	void SetVisualisation();
 
 	// Events
-	void OnKeyPressed(char key);
-	void OnKeyReleased(char key);
+	void OnKeyPressed(int key);
+	void OnKeyReleased(int key);
 
 private:
-	JN_Paddle* paddle;
-
-
 	MySimulationEventCallback* my_callback;
 
+	JN_Plunger* plunger;
+
 	void CreateFrame();
-	void CreatePaddles();
 
 	void CustomInit() override;
 	void CustomUpdate(PxReal delta) override;
