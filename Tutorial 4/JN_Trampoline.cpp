@@ -63,5 +63,5 @@ void JN_Trampoline::AddForce(PxReal force)
 {
 	bottom->SetKinematic(true);
 
-	top->Get()->is<PxRigidDynamic>()->addForce({ 0, 0, -force });
+	top->Get()->is<PxRigidDynamic>()->addForce({ 0, 0, force });
 }

@@ -14,7 +14,11 @@ public:
 
 	void Activate(PxReal force);
 
+	void AddToScene(JN_Scene* scene);
+
 private:
-	JN_Trampoline* trampoline;
+	Box* top;
+
+	PxD6Joint* joint;
 };
 

@@ -31,11 +31,11 @@ void JN_PinballScene::SetVisualisation()
 void JN_PinballScene::CreateFrame()
 {
 	std::vector<Actors::StaticBox*> boxes = {
-		new Actors::StaticBox({ FRAME_WIDTH, 0.25f, 0.0f }, { 0.25f, 0.25f, FRAME_LENGTH }), // Left
-		new Actors::StaticBox({ -FRAME_WIDTH, 0.25f, 0.0f }, { 0.25f, 0.25f, FRAME_LENGTH }), // Right
+		new Actors::StaticBox({ FRAME_WIDTH, 0.25f, 0.25f }, { 0.25f, 0.25f, FRAME_LENGTH + 0.25f}), // Right
+		new Actors::StaticBox({ -FRAME_WIDTH, 0.25f, 0.0f }, { 0.25f, 0.25f, FRAME_LENGTH }), // Left
 
-		new Actors::StaticBox({ 0.0f, 0.25f, FRAME_LENGTH + 0.25f}, {FRAME_WIDTH + 0.25f, 0.25f, 0.25f }), // Bottom
-		new Actors::StaticBox({ 0.0f, 0.25f, -FRAME_LENGTH - 0.25f }, { FRAME_WIDTH + 0.25f, 0.25f, 0.25f }), // Top
+		new Actors::StaticBox({ -0.5f, 0.25f, +FRAME_LENGTH + 0.25f }, { FRAME_WIDTH - 0.25f, 0.25f, 0.25f }), // Bottom
+		new Actors::StaticBox({ +0.0f, 0.25f, -FRAME_LENGTH - 0.25f }, { FRAME_WIDTH + 0.25f, 0.25f, 0.25f }), // Top
 
 		// Plunger Pipe
 		new Actors::StaticBox({ 7.0f, 0.25f, 5.f }, { 0.25f, 0.25f, 10.0f })
@@ -65,7 +65,7 @@ void JN_PinballScene::CustomInit()
 
 	CreateFrame();
 
-	Actors::Sphere* ball = new Actors::Sphere({ 7.f, 0.25f, 14.f }, 0.25f);
+	Actors::Sphere* ball = new Actors::Sphere({ 7.f, 0.25f, 12.f }, 0.25f);
 
 	Add(ball);
 
@@ -83,7 +83,7 @@ void JN_PinballScene::OnKeyPressed(int key)
 	{
 		// Space
 	case 32:
-		plunger->Activate(20.0f);
+		plunger->Activate(-100.0f);
 		break;
 	}
 }
