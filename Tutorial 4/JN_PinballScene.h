@@ -25,9 +25,14 @@ public:
 private:
 	MySimulationEventCallback* my_callback;
 
+	// Objects
 	JN_Plunger* plunger;
 
 	void CreateFrame();
+	void CreatePlane();
+	void CreateBall();
+
+	void AddObjects();
 
 	void CustomInit() override;
 	void CustomUpdate(PxReal delta) override;

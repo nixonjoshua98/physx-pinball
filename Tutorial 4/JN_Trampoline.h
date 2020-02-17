@@ -10,6 +10,7 @@ using namespace PhysicsEngine;
 using namespace physx;
 using namespace Actors;
 
+// Taken from Tutorial 3
 
 
 class JN_Trampoline
@@ -23,6 +24,9 @@ public:
 	JN_Trampoline(const PxTransform& pose = PxTransform(PxIdentity), const PxVec3& dimensions = PxVec3(1.f, 1.f, 1.f), PxReal stiffness = 1.f, PxReal damping = 1.f);
 	~JN_Trampoline();
 
+	// Adds the actors to the scene
 	void AddToScene(JN_Scene* scene);
+
+	// Adds force to the top box
 	void AddForce(PxReal force);
 };

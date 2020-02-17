@@ -48,6 +48,7 @@ void JN_Scene::Update(PxReal delta)
 
 		physics_scene->simulate(delta);
 
+		// Save the simulation results
 		physics_scene->fetchResults(true);
 	}
 }

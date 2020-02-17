@@ -67,7 +67,7 @@ namespace VisualDebugger
 		Renderer::InitWindow(window_name, width, height);
 		Renderer::Init();
 
-		camera = new Camera(PxVec3(0.0f, 5.0f, 15.0f), PxVec3(0.f,-.1f,-1.f), 5.f);
+		camera = new Camera(PxVec3(0.0f, 18.f, 24.0f), { 0.f, -0.6, -0.8f }, 5.f);
 
 		// Initialise HUD
 		HUDInit();
@@ -189,7 +189,6 @@ namespace VisualDebugger
 
 		switch (k)
 		{
-		//implement your own
 		case 'R':
 			scene->OnKeyReleased(k);
 			break;

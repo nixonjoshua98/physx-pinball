@@ -12,6 +12,7 @@ class JN_Plunger
 public:
 	JN_Plunger(JN_Scene* scene);
 
+	// Trigger the plunger
 	void Activate(PxReal force);
 
 	void AddToScene(JN_Scene* scene);
