@@ -2,6 +2,8 @@
 #include <iostream>
 
 #include "JN_PinballScene.h"
+#include "JN_Object.h"
+
 
 using namespace Actors;
 
@@ -70,6 +72,12 @@ void JN_PinballScene::CreateBall()
 
 void JN_PinballScene::AddObjects()
 {
+	JN_Object* obj = new JN_Object("Box.obj", { 0, 5, 0 });
+
+	obj->AddToScene(this);
+
+	obj->Color({ 0, 0, 0});
+
 	plunger = new JN_Plunger(this);
 }
 
@@ -97,7 +105,7 @@ void JN_PinballScene::CustomUpdate(PxReal delta)
 
 void JN_PinballScene::OnKeyPressed(int key)
 {
-	std::cout << key << std::endl;
+	// std::cout << key << std::endl;
 
 	switch (key)
 	{

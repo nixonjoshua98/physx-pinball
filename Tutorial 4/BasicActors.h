@@ -47,11 +47,13 @@ namespace PhysicsEngine
 			: StaticActor(pose)
 		{
 			PxTriangleMeshDesc mesh_desc;
+
 			mesh_desc.points.count = (PxU32)verts.size();
 			mesh_desc.points.stride = sizeof(PxVec3);
 			mesh_desc.points.data = &verts.front();
+
 			mesh_desc.triangles.count = (PxU32)trigs.size();
-			mesh_desc.triangles.stride = 3*sizeof(PxU32);
+			mesh_desc.triangles.stride = 3 * sizeof(PxU32);
 			mesh_desc.triangles.data = &trigs.front();
 
 			CreateShape(PxTriangleMeshGeometry(CookMesh(mesh_desc)));
@@ -78,6 +80,7 @@ namespace PhysicsEngine
 		DistanceJoint(Actors::Actor* actor0, const PxTransform& localFrame0, Actors::Actor* actor1, const PxTransform& localFrame1)
 		{
 			PxRigidActor* px_actor0 = 0;
+
 			if (actor0)
 				px_actor0 = (PxRigidActor*)actor0->Get();
 
