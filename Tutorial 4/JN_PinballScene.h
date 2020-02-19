@@ -1,11 +1,12 @@
 #pragma once
 
-#include "JN_Scene.h"
-
 #include "MyPhysicsEngine.h"
+
+#include "JN_Scene.h"
 
 #include "JN_BasicActors.h"
 #include "JN_Plunger.h"
+#include "JN_Model.h"
 
 
 class JN_PinballScene : public JN_Scene
@@ -27,12 +28,10 @@ private:
 
 	// Objects
 	JN_Plunger* plunger;
+	JN_Model* frame;
 
-	void CreateFrame();
 	void CreatePlane();
 	void CreateBall();
-
-	void AddObjects();
 
 	void CustomInit() override;
 	void CustomUpdate(PxReal delta) override;

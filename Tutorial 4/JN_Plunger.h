@@ -2,7 +2,6 @@
 
 #include "JN_BasicActors.h"
 #include "JN_Scene.h"
-#include "JN_Trampoline.h"
 
 using namespace physx;
 using namespace Actors;
@@ -10,7 +9,7 @@ using namespace Actors;
 class JN_Plunger
 {
 public:
-	JN_Plunger(JN_Scene* scene);
+	JN_Plunger(PxTransform pose = PxTransform(PxIdentity));
 
 	// Trigger the plunger
 	void Activate(PxReal force);

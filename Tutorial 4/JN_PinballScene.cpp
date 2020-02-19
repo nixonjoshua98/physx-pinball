@@ -2,14 +2,14 @@
 #include <iostream>
 
 #include "JN_PinballScene.h"
-#include "JN_Object.h"
+#include "JN_Model.h"
 
 
 using namespace Actors;
 
 
 
-JN_PinballScene::JN_PinballScene(): plunger(0), my_callback(0)
+JN_PinballScene::JN_PinballScene(): plunger(0), my_callback(0), frame(0)
 {
 
 }
@@ -31,27 +31,6 @@ void JN_PinballScene::SetVisualisation()
 	physics_scene->setVisualizationParameter(PxVisualizationParameter::eJOINT_LOCAL_FRAMES, 1.0f);
 }
 
-void JN_PinballScene::CreateFrame()
-{
-	std::vector<Actors::StaticBox*> boxes = {
-		new StaticBox({ FRAME_WIDTH, 0.25f, 0.25f }, { 0.25f, 0.25f, FRAME_LENGTH + 0.25f}), // Right
-		new StaticBox({ -FRAME_WIDTH, 0.25f, 0.0f }, { 0.25f, 0.25f, FRAME_LENGTH }), // Left
-
-		new StaticBox({ -0.5f, 0.25f, +FRAME_LENGTH + 0.25f }, { FRAME_WIDTH - 0.25f, 0.25f, 0.25f }), // Bottom
-		new StaticBox({ +0.0f, 0.25f, -FRAME_LENGTH - 0.25f }, { FRAME_WIDTH + 0.25f, 0.25f, 0.25f }), // Top
-
-		// Plunger Pipe
-		new StaticBox({ 7.0f, 0.25f, 5.f }, { 0.25f, 0.25f, 10.0f })
-	};
-
-	for (auto b : boxes)
-	{
-		b->Color({ 0, 1, 0 });
-
-		Add(b);
-	}
-}
-
 void JN_PinballScene::CreatePlane()
 {
 	Plane* plane = new Actors::Plane();
@@ -70,32 +49,34 @@ void JN_PinballScene::CreateBall()
 	Add(ball);
 }
 
-void JN_PinballScene::AddObjects()
-{
-	JN_Object* obj = new JN_Object("Box.obj", { 0, 5, 0 });
-
-	obj->AddToScene(this);
-
-	obj->Color({ 0, 0, 0});
-
-	plunger = new JN_Plunger(this);
-}
-
 void JN_PinballScene::CustomInit()
 {
 	SetVisualisation();
 
-	GetMaterial()->setDynamicFriction(.2f);
+	GetMaterial()->setDynamicFriction(.1f);
 
 	my_callback = new MySimulationEventCallback();
 
 	physics_scene->setSimulationEventCallback(my_callback);
 
-	CreatePlane();
-	CreateFrame();
-	CreateBall();
 
-	AddObjects();
+	// - - Objects - - 
+
+	CreatePlane();
+
+	// Pinball Frame
+	JN_Model* frame = new JN_Model("PinballFrame.obj");
+
+	frame->AddToScene(this);
+
+	frame->Color({ 139.0f / 255.0f, 69.0f / 255.0f, 19.0f / 255.0f});
+
+	// Plunger
+	plunger = new JN_Plunger({ 7.25f, 0.5f, 18 });
+
+	plunger->AddToScene(this);
+
+	CreateBall();
 }
 
 void JN_PinballScene::CustomUpdate(PxReal delta)
@@ -111,7 +92,7 @@ void JN_PinballScene::OnKeyPressed(int key)
 	{
 		// Space
 	case 32:
-		plunger->Activate(-125.0f);
+		plunger->Activate(-75.0f);
 		break;
 
 		// F

@@ -1,4 +1,4 @@
-#include "JN_ObjectLoader.h"
+#include "JN_ModelLoader.h"
 
 #include <iostream>
 #include <fstream>
@@ -6,7 +6,7 @@
 #include <sstream>
 
 
-JN_ObjectLoader::JN_ObjectLoader(std::string file)
+JN_ModelLoader::JN_ModelLoader(std::string file)
 {
 	vertices = std::vector<PxVec3>();
 	indices = std::vector<PxU32>();
@@ -14,12 +14,12 @@ JN_ObjectLoader::JN_ObjectLoader(std::string file)
 	Load(file);
 }
 
-JN_ObjectLoader::~JN_ObjectLoader()
+JN_ModelLoader::~JN_ModelLoader()
 {
 
 }
 
-void JN_ObjectLoader::Load(std::string file)
+void JN_ModelLoader::Load(std::string file)
 {
 	std::string line;
 
@@ -38,20 +38,15 @@ void JN_ObjectLoader::Load(std::string file)
 			else if (line.rfind("vn", 0) == 0)
 				continue;
 
+			// Vertices
 			else if (line.rfind("v", 0) == 0)
 			{
 				std::vector<std::string> results = PerformRegex(line, "\\s+", true);
 
-				for (unsigned int i = 0; i < results.size(); i += 3)
-				{
-					PxVec3 vec = PxVec3({ std::stof(results[i]), std::stof(results[i + 1]), std::stof(results[i + 2]) });
-
-					vertices.push_back(vec);
-
-					std::cout << "X: " << vec.x << " " << "Y: " << vec.y << " " << "Z: " << vec.z << std::endl;
-				}
+				vertices.push_back({ std::stof(results[0]), std::stof(results[1]), std::stof(results[2]) });
 			}
 
+			// Faces (Indices)
 			else if (line.rfind("f", 0) == 0)
 			{
 				std::replace(line.begin(), line.end(), '/', ' ');
@@ -72,7 +67,7 @@ void JN_ObjectLoader::Load(std::string file)
 	}
 }
 
-std::vector<std::string> JN_ObjectLoader::PerformRegex(std::string line, std::string regex, bool popFront)
+std::vector<std::string> JN_ModelLoader::PerformRegex(std::string line, std::string regex, bool popFront)
 {
 	std::regex re(regex);
 

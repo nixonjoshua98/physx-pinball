@@ -7,10 +7,10 @@
 
 using namespace PhysicsEngine;
 
-class JN_Object
+class JN_Model
 {
 public:
-	JN_Object(std::string file, PxTransform pose = PxTransform(PxIdentity));
+	JN_Model(std::string file, PxTransform pose = PxTransform(PxIdentity));
 
 	void AddToScene(JN_Scene* scene);
 

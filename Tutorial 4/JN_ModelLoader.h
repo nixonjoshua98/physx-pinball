@@ -8,11 +8,11 @@
 using namespace physx;
 
 
-class JN_ObjectLoader
+class JN_ModelLoader
 {
 public:
-	JN_ObjectLoader(std::string file);
-	~JN_ObjectLoader();
+	JN_ModelLoader(std::string file);
+	~JN_ModelLoader();
 
 	std::vector<PxVec3> vertices;
 	std::vector<PxU32> indices;
@@ -20,6 +20,7 @@ public:
 private:
 	void Load(std::string file);
 
+	// Perform RE expression on string
 	std::vector<std::string> PerformRegex(std::string line, std::string regex, bool popFront);
 };
 

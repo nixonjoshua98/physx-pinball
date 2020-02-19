@@ -42,7 +42,8 @@ namespace PhysicsEngine
 	class TriangleMesh : public Actors::StaticActor
 	{
 	public:
-		//constructor
+		TriangleMesh(const PxTransform& pose = PxTransform(PxIdentity)) : StaticActor(pose) { }
+
 		TriangleMesh(const std::vector<PxVec3>& verts, const std::vector<PxU32>& trigs, const PxTransform& pose=PxTransform(PxIdentity))
 			: StaticActor(pose)
 		{
@@ -52,7 +53,7 @@ namespace PhysicsEngine
 			mesh_desc.points.stride = sizeof(PxVec3);
 			mesh_desc.points.data = &verts.front();
 
-			mesh_desc.triangles.count = (PxU32)trigs.size();
+			mesh_desc.triangles.count = (PxU32)(trigs.size() / 3);
 			mesh_desc.triangles.stride = 3 * sizeof(PxU32);
 			mesh_desc.triangles.data = &trigs.front();
 
