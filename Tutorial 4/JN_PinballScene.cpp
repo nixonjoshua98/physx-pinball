@@ -42,7 +42,7 @@ void JN_PinballScene::CreatePlane()
 
 void JN_PinballScene::CreateBall()
 {
-	Actors::Sphere* ball = new Actors::Sphere({ 7.f, 0.25f, 12.f }, 0.25f);
+	Actors::Sphere* ball = new Actors::Sphere({ 7.f, 0.25f, 12.f }, 0.20f);
 
 	ball->Color({ 1, 0, 0 });
 
