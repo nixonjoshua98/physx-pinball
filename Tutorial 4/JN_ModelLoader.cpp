@@ -57,6 +57,8 @@ void JN_ModelLoader::Load(std::string file)
 				{
 					indices.push_back(std::stoi(results[i]) - 1);
 				}
+
+				std::cout << std::endl;
 			}
 		}
 	}
