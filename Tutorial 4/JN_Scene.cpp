@@ -5,6 +5,8 @@
 
 #include <iostream>
 
+// http://www.falstad.com/dotproduct/
+
 void JN_Scene::Init()
 {
 #if PX_PHYSICS_VERSION < 0x304000
@@ -29,7 +31,7 @@ void JN_Scene::Init()
 		throw new Exception("Physics scene failed to be created.");
 
 	// Earth gravity: (0.0f, -9.81f, 0.0f)
-	physics_scene->setGravity(PxVec3(0.0f, -5.0f, 8.0f));
+	physics_scene->setGravity(PxVec3(0.0f, -9.81, 8.0));
 
 	CustomInit();
 
