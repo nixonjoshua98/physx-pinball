@@ -48,7 +48,7 @@ void JN_ModelLoader::Load(std::string file)
 				continue;
 
 			// Vertices
-			else if (line.rfind("v", 0) == 0)
+			else if (line[0] == 'v')
 			{
 				std::vector<std::string> results = PerformRegex(line, "\\s+", true);
 

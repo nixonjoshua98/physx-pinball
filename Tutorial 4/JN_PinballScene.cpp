@@ -4,6 +4,7 @@
 #include "JN_PinballScene.h"
 #include "JN_PinballFrame.h"
 #include "JN_Hexagon.h"
+#include "JN_Functions.h"
 
 
 using namespace Actors;
@@ -43,12 +44,41 @@ void JN_PinballScene::CreatePlane()
 
 void JN_PinballScene::CreateBall()
 {
-	Actors::Sphere* ball = new Actors::Sphere({ 7.25f, 5.25f, 5.0f }, 0.20f);
+	Actors::Sphere* ball = new Actors::Sphere({ 4.25f, 5.25f, 5.0f }, 0.20f);
 
 	ball->Color({ 1, 0, 0 });
 	ball->Material(ballMaterial);
 
 	Add(ball);
+}
+
+void JN_PinballScene::CreateFrame()
+{
+	JN_PinballFrame* frame = new JN_PinballFrame();
+
+	frame->AddToScene(this);
+}
+
+void JN_PinballScene::CreateHexagons()
+{
+	JN_Hexagon* leftTop  = new JN_Hexagon({ -3.5f, 5.75f, -5.0f }, 0.5f);
+	JN_Hexagon* rightTop = new JN_Hexagon({ 2.50f, 5.75f, -5.0f }, 0.5f);
+
+	JN_Hexagon* leftBtm  = new JN_Hexagon({ -3.5f, 5.75f, 5.0f }, 0.5f);
+	JN_Hexagon* rightBtm = new JN_Hexagon({ 2.50f, 5.75f, 5.0f }, 0.5f);
+
+	leftTop->AddToScene(this);
+	leftBtm->AddToScene(this);
+
+	rightTop->AddToScene(this);
+	rightBtm->AddToScene(this);
+}
+
+void JN_PinballScene::CreatePlunger()
+{
+	plunger = new JN_Plunger({ 4.25f, 5.5f, 14 });
+
+	plunger->AddToScene(this);
 }
 
 void JN_PinballScene::CustomInit()
@@ -60,28 +90,14 @@ void JN_PinballScene::CustomInit()
 	physics_scene->setSimulationEventCallback(my_callback);
 
 	// Materials
-	ballMaterial = GetPhysics()->createMaterial(0.0f, 0.1f, 0.0f);
+	ballMaterial = GetPhysics()->createMaterial(0.0f, 0.15f, 0.0f);
 
 	// Objects
 	CreatePlane();
-
-	JN_PinballFrame* frame	= new JN_PinballFrame();
-	plunger					= new JN_Plunger({ 7.25f, 5.5f, 18 });
-
-	JN_Hexagon* hex1		= new JN_Hexagon({   3.5f, 5.75f, -10.0f }, 0.5f, 2.0f);
-	JN_Hexagon* hex2		= new JN_Hexagon({  -4.5f, 5.75f, -10.0f }, 0.5f, 2.0f);
-	JN_Hexagon* hex3		= new JN_Hexagon({   3.5f, 5.75f,   5.0f }, 0.5f, 2.0f);
-	JN_Hexagon* hex4		= new JN_Hexagon({  -4.5f, 5.75f,   5.0f }, 0.5f, 2.0f);
-
+	CreateFrame();
+	CreateHexagons();
+	CreatePlunger();
 	CreateBall();
-
-	frame->AddToScene(this);
-	plunger->AddToScene(this);
-
-	hex1->AddToScene(this);
-	hex2->AddToScene(this);
-	hex3->AddToScene(this);
-	hex4->AddToScene(this);
 }
 
 void JN_PinballScene::CustomUpdate(PxReal delta)
@@ -91,17 +107,13 @@ void JN_PinballScene::CustomUpdate(PxReal delta)
 
 void JN_PinballScene::OnKeyPressed(int key)
 {
-	// std::cout << key << std::endl;
+	std::cout << key << std::endl;
 
 	switch (key)
 	{
 		// Space
 	case 32:
-		plunger->Activate(-75.0f);
-		break;
-
-		// F
-	case 70:
+		plunger->Activate(-55.0f);
 		break;
 	}
 }

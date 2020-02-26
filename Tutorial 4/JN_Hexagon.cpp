@@ -15,8 +15,7 @@ JN_Hexagon::JN_Hexagon(const PxTransform& pose, PxReal height, PxReal radius) : 
 	// Material
 	PxMaterial* hexMaterial = CreateMaterial(0.0f, 0.0f, 0.0f);
 
-	hexMaterial->setRestitution(1.0f);
-
+	hexMaterial->setRestitution(2.5f);
 
 	for (int i = 0; i < SIDES; i++)
 	{

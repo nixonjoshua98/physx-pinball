@@ -35,6 +35,9 @@ private:
 
 	void CreatePlane();
 	void CreateBall();
+	void CreateFrame();
+	void CreateHexagons();
+	void CreatePlunger();
 
 	void CustomInit() override;
 	void CustomUpdate(PxReal delta) override;
