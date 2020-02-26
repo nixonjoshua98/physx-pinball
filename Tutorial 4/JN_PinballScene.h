@@ -26,6 +26,9 @@ public:
 private:
 	MySimulationEventCallback* my_callback;
 
+	// Materials
+	PxMaterial* ballMaterial;
+
 	// Objects
 	JN_Plunger* plunger;
 	JN_Model* frame;

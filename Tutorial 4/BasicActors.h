@@ -18,7 +18,9 @@ namespace PhysicsEngine
 			mesh_desc.points.count = (PxU32)verts.size();
 			mesh_desc.points.stride = sizeof(PxVec3);
 			mesh_desc.points.data = &verts.front();
+
 			mesh_desc.flags = PxConvexFlag::eCOMPUTE_CONVEX;
+
 			mesh_desc.vertexLimit = 256;
 
 			CreateShape(PxConvexMeshGeometry(CookMesh(mesh_desc)), density);

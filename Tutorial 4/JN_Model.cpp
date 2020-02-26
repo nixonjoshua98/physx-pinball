@@ -3,19 +3,34 @@
 #include "JN_Model.h"
 #include "JN_ModelLoader.h"
 
-JN_Model::JN_Model(std::string file, PxTransform pose) : mesh(0)
+JN_Model::JN_Model(std::string file, PxTransform pose) : StaticActor(pose)
 {
 	JN_ModelLoader loader(file);
 
-	mesh = new TriangleMesh(loader.vertices, loader.indices, pose);
+	for (auto object : loader.indicesVector)
+	{
+		PxTriangleMeshDesc mesh_desc;
+
+		mesh_desc.points.count = (PxU32)loader.vertices.size();
+		mesh_desc.points.stride = sizeof(PxVec3);
+		mesh_desc.points.data = &loader.vertices.front();
+
+		mesh_desc.triangles.count = (PxU32)(object.second.size() / 3);
+		mesh_desc.triangles.stride = 3 * sizeof(PxU32);
+		mesh_desc.triangles.data = &object.second.front();
+
+		CreateShape(PxTriangleMeshGeometry(CookMesh(mesh_desc)));
+	}
 }
 
-void JN_Model::AddToScene(JN_Scene* scene)
+PxTriangleMesh* JN_Model::CookMesh(const PxTriangleMeshDesc& mesh_desc)
 {
-	scene->Add(mesh);
-}
+	PxDefaultMemoryOutputStream stream;
 
-void JN_Model::Color(PxVec3 v, PxU32 c)
-{
-	mesh->Color(v, c);
+	if (!GetCooking()->cookTriangleMesh(mesh_desc, stream))
+		throw new Exception("TriangleMesh::CookMesh, cooking failed.");
+
+	PxDefaultMemoryInputData input(stream.getData(), stream.getSize());
+
+	return GetPhysics()->createTriangleMesh(input);
 }

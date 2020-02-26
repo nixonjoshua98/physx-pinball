@@ -25,6 +25,8 @@ void JN_ModelLoader::Load(std::string file)
 
 	std::ifstream stream(file);
 
+	int objectID = -1;
+
 	if (stream.is_open())
 	{
 		std::cout << "Opened: " << file << std::endl;
@@ -32,7 +34,14 @@ void JN_ModelLoader::Load(std::string file)
 		// Iterate through the file line by line
 		while (std::getline(stream, line))
 		{
-			if (line.rfind("vt", 0) == 0)
+			if (line[0] == 'o')
+			{
+				++objectID;
+
+				indicesVector[objectID] = std::vector<PxU32>();
+			}
+
+			else if (line.rfind("vt", 0) == 0)
 				continue;
 
 			else if (line.rfind("vn", 0) == 0)
@@ -56,6 +65,8 @@ void JN_ModelLoader::Load(std::string file)
 				for (unsigned int i = 0; i < results.size(); i += 3)
 				{
 					indices.push_back(std::stoi(results[i]) - 1);
+
+					indicesVector[objectID].push_back(std::stoi(results[i]) - 1);
 				}
 
 				std::cout << std::endl;

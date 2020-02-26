@@ -18,7 +18,7 @@ void JN_Scene::Init()
 	// Set number of CPU threads
 	if (!scene_desc.cpuDispatcher)
 	{
-		scene_desc.cpuDispatcher = PxDefaultCpuDispatcherCreate(1);
+		scene_desc.cpuDispatcher = PxDefaultCpuDispatcherCreate(2);
 	}
 
 	// Set shader

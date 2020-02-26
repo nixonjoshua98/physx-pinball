@@ -30,8 +30,11 @@
     <ClInclude Include="JN_BaseActors.h" />
     <ClInclude Include="JN_BasicActors.h" />
     <ClInclude Include="JN_Cloth.h" />
+    <ClInclude Include="JN_Hexagon.h" />
+    <ClInclude Include="JN_Functions.h" />
     <ClInclude Include="JN_Model.h" />
     <ClInclude Include="JN_ModelLoader.h" />
+    <ClInclude Include="JN_PinballFrame.h" />
     <ClInclude Include="JN_PinballScene.h" />
     <ClInclude Include="JN_Plunger.h" />
     <ClInclude Include="JN_Scene.h" />
@@ -45,8 +48,10 @@
     <ClCompile Include="Extras\Renderer.cpp" />
     <ClCompile Include="JN_BaseActors.cpp" />
     <ClCompile Include="JN_Cloth.cpp" />
+    <ClCompile Include="JN_Hexagon.cpp" />
     <ClCompile Include="JN_Model.cpp" />
     <ClCompile Include="JN_ModelLoader.cpp" />
+    <ClCompile Include="JN_PinballFrame.cpp" />
     <ClCompile Include="JN_PinballScene.cpp" />
     <ClCompile Include="JN_Plunger.cpp" />
     <ClCompile Include="JN_Scene.cpp" />

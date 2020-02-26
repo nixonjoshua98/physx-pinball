@@ -56,7 +56,7 @@ namespace PhysicsEngine
 		if(!physics)
 			throw new Exception("PhysicsEngine::PxInit, Could not initialise the PhysX SDK.");
 
-		//create a deafult material
+		//create a default material
 		CreateMaterial();
 	}
 

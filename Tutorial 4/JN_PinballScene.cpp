@@ -2,14 +2,15 @@
 #include <iostream>
 
 #include "JN_PinballScene.h"
-#include "JN_Model.h"
+#include "JN_PinballFrame.h"
+#include "JN_Hexagon.h"
 
 
 using namespace Actors;
 
 
 
-JN_PinballScene::JN_PinballScene(): plunger(0), my_callback(0), frame(0)
+JN_PinballScene::JN_PinballScene(): plunger(0), my_callback(0), frame(0), ballMaterial(0)
 {
 
 }
@@ -42,9 +43,10 @@ void JN_PinballScene::CreatePlane()
 
 void JN_PinballScene::CreateBall()
 {
-	Actors::Sphere* ball = new Actors::Sphere({ 7.f, 0.25f, 12.f }, 0.20f);
+	Actors::Sphere* ball = new Actors::Sphere({ 7.25f, 5.25f, 5.0f }, 0.20f);
 
 	ball->Color({ 1, 0, 0 });
+	ball->Material(ballMaterial);
 
 	Add(ball);
 }
@@ -53,30 +55,33 @@ void JN_PinballScene::CustomInit()
 {
 	SetVisualisation();
 
-	GetMaterial()->setDynamicFriction(.1f);
-
 	my_callback = new MySimulationEventCallback();
 
 	physics_scene->setSimulationEventCallback(my_callback);
 
+	// Materials
+	ballMaterial = GetPhysics()->createMaterial(0.0f, 0.1f, 0.0f);
 
-	// - - Objects - - 
-
+	// Objects
 	CreatePlane();
 
-	// Pinball Frame
-	JN_Model* frame = new JN_Model("PinballFrame.obj");
+	JN_PinballFrame* frame	= new JN_PinballFrame();
+	plunger					= new JN_Plunger({ 7.25f, 5.5f, 18 });
 
-	frame->AddToScene(this);
-
-	frame->Color({ 139.0f / 255.0f, 69.0f / 255.0f, 19.0f / 255.0f});
-
-	// Plunger
-	plunger = new JN_Plunger({ 7.25f, 0.5f, 18 });
-
-	plunger->AddToScene(this);
+	JN_Hexagon* hex1		= new JN_Hexagon({   3.5f, 5.75f, -10.0f }, 0.5f, 2.0f);
+	JN_Hexagon* hex2		= new JN_Hexagon({  -4.5f, 5.75f, -10.0f }, 0.5f, 2.0f);
+	JN_Hexagon* hex3		= new JN_Hexagon({   3.5f, 5.75f,   5.0f }, 0.5f, 2.0f);
+	JN_Hexagon* hex4		= new JN_Hexagon({  -4.5f, 5.75f,   5.0f }, 0.5f, 2.0f);
 
 	CreateBall();
+
+	frame->AddToScene(this);
+	plunger->AddToScene(this);
+
+	hex1->AddToScene(this);
+	hex2->AddToScene(this);
+	hex3->AddToScene(this);
+	hex4->AddToScene(this);
 }
 
 void JN_PinballScene::CustomUpdate(PxReal delta)

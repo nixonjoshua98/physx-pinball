@@ -17,7 +17,7 @@ public:
 	void AddToScene(JN_Scene* scene);
 
 private:
-	Box* top;
+	Box* box;
 
 	PxD6Joint* joint;
 };

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <map>
 #include <vector>
 
 #include "PxPhysicsAPI.h"
@@ -16,6 +17,8 @@ public:
 
 	std::vector<PxVec3> vertices;
 	std::vector<PxU32> indices;
+
+	std::map<int, std::vector<PxU32>> indicesVector;
 
 private:
 	void Load(std::string file);
