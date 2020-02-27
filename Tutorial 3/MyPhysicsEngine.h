@@ -222,16 +222,16 @@ namespace PhysicsEngine
 			//use | operator to combine more actors e.g.
 			// box->SetupFiltering(FilterGroup::ACTOR0, FilterGroup::ACTOR1 | FilterGroup::ACTOR2);
 			//don't forget to set your flags for the matching actor as well, e.g.:
-			// box2->SetupFiltering(FilterGroup::ACTOR1, FilterGroup::ACTOR0);
+			//box2->SetupFiltering(FilterGroup::ACTOR1, FilterGroup::ACTOR0);
 			box->Name("Box1");
 			Add(box);
 
-			/*
+			
 			//joint two boxes together
 			//the joint is fixed to the centre of the first box, oriented by 90 degrees around the Y axis
 			//and has the second object attached 5 meters away along the Y axis from the first object.
 			RevoluteJoint joint(box, PxTransform(PxVec3(0.f,0.f,0.f),PxQuat(PxPi/2,PxVec3(0.f,1.f,0.f))), box2, PxTransform(PxVec3(0.f,5.f,0.f)));
-			*/
+			
 		}
 
 		//Custom udpate function
