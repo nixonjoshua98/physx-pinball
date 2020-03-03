@@ -3,6 +3,8 @@
 #include "JN_BasicActors.h"
 #include "JN_Scene.h"
 
+#include "BasicActors.h"
+
 namespace Actors
 {
 	class JN_Spinner : public Box
@@ -12,6 +14,9 @@ namespace Actors
 		~JN_Spinner();
 
 		void AddToScene(JN_Scene* scene);
+
+	private:
+		RevoluteJoint* joint;
 	};
 }
 

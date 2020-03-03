@@ -5,11 +5,11 @@ namespace Actors
 {
 	JN_Spinner::JN_Spinner(const PxTransform& pose, PxVec3 dimensions, PxReal density) : Box(pose, dimensions, density)
 	{
-		SetKinematic(true);
+		Color(Helpers::RGB(255, 0, 0));
 
-		Color(Helpers::RGB(0, 0, 0));
+		PxQuat q = PxQuat(0.0f, 0.0f, 0.7071067811865476f, 0.7071067811865476f);
 
-		// Revolute Joint
+		joint = new RevoluteJoint(nullptr, pose * PxTransform(q), this, PxTransform(PxVec3(PxIdentity), q));
 	}
 
 	JN_Spinner::~JN_Spinner()
@@ -20,5 +20,7 @@ namespace Actors
 	void JN_Spinner::AddToScene(JN_Scene* scene)
 	{
 		scene->Add(this);
+
+		joint->DriveVelocity(-5.f);
 	}
 }

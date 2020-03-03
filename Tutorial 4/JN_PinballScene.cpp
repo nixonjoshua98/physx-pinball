@@ -7,6 +7,8 @@
 #include "JN_Functions.h"
 #include "JN_Spinner.h"
 
+#include "JN_Model.h"
+
 
 using namespace Actors;
 
@@ -84,7 +86,7 @@ void JN_PinballScene::CreatePlunger()
 
 void JN_PinballScene::CreateSpinner()
 {
-	JN_Spinner* spinner = new JN_Spinner({ 0, 6, 0 });
+	JN_Spinner* spinner = new JN_Spinner({ -0.5f, 5.75f, 0.f }, { 1.5f, 0.25f, 0.125f });
 
 	spinner->AddToScene(this);
 }
