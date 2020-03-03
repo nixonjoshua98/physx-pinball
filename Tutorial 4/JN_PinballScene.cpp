@@ -5,6 +5,7 @@
 #include "JN_PinballFrame.h"
 #include "JN_Hexagon.h"
 #include "JN_Functions.h"
+#include "JN_Spinner.h"
 
 
 using namespace Actors;
@@ -76,9 +77,16 @@ void JN_PinballScene::CreateHexagons()
 
 void JN_PinballScene::CreatePlunger()
 {
-	plunger = new JN_Plunger({ 4.25f, 5.5f, 14 });
+	plunger = new JN_Plunger({ 4.25f, 5.5f, 11 });
 
 	plunger->AddToScene(this);
+}
+
+void JN_PinballScene::CreateSpinner()
+{
+	JN_Spinner* spinner = new JN_Spinner({ 0, 6, 0 });
+
+	spinner->AddToScene(this);
 }
 
 void JN_PinballScene::CustomInit()
@@ -95,6 +103,7 @@ void JN_PinballScene::CustomInit()
 	// Objects
 	CreatePlane();
 	CreateFrame();
+	CreateSpinner();
 	CreateHexagons();
 	CreatePlunger();
 	CreateBall();
@@ -107,14 +116,15 @@ void JN_PinballScene::CustomUpdate(PxReal delta)
 
 void JN_PinballScene::OnKeyPressed(int key)
 {
-	std::cout << key << std::endl;
+	// std::cout << key << std::endl;
 
 	switch (key)
 	{
 		// Space
 	case 32:
-		plunger->Activate(-55.0f);
+		plunger->Activate(-15.0f);
 		break;
+
 	}
 }
 

@@ -13,20 +13,21 @@ JN_Hexagon::JN_Hexagon(const PxTransform& pose, PxReal height, PxReal radius) : 
 	radius /= 2;
 
 	// Material
-	PxMaterial* hexMaterial = CreateMaterial(0.0f, 0.0f, 0.0f);
+	PxMaterial* hexMaterial = CreateMaterial(0.0f, 0.0f, 1.5f);
 
-	hexMaterial->setRestitution(2.5f);
-
+	// Grab points around the 'circle'
 	for (int i = 0; i < SIDES; i++)
 	{
 		float angle = i * PxPi * 2 / SIDES;
 
 		PxVec3 pos = PxVec3(PxCos(angle), height, PxSin(angle)) * radius;
 
+		// Top verts
 		verts.push_back(pos);
 
 		pos.y = -height;
 
+		// Bottom verts
 		verts.push_back(pos);
 	}
 

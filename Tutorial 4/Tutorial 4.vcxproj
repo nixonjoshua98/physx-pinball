@@ -38,6 +38,7 @@
     <ClInclude Include="JN_PinballScene.h" />
     <ClInclude Include="JN_Plunger.h" />
     <ClInclude Include="JN_Scene.h" />
+    <ClInclude Include="JN_Spinner.h" />
     <ClInclude Include="MyPhysicsEngine.h" />
     <ClInclude Include="PhysicsEngine.h" />
     <ClInclude Include="VisualDebugger.h" />
@@ -55,6 +56,7 @@
     <ClCompile Include="JN_PinballScene.cpp" />
     <ClCompile Include="JN_Plunger.cpp" />
     <ClCompile Include="JN_Scene.cpp" />
+    <ClCompile Include="JN_Spinner.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
     <ClCompile Include="VisualDebugger.cpp" />
     <ClCompile Include="Tutorial 4.cpp" />

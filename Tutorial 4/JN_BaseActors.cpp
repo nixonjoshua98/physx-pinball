@@ -13,13 +13,13 @@ PxActor* Actor::Get()
 
 void Actor::Color(PxVec3 new_color, PxU32 shape_index)
 {
-	//change color of all shapes
+	// Change color of all shapes
 	if (shape_index == -1)
 	{
 		for (unsigned int i = 0; i < colors.size(); i++)
 			colors[i] = new_color;
 	}
-	//or only the selected one
+	// Only the selected one
 	else if (shape_index < colors.size())
 	{
 		colors[shape_index] = new_color;
@@ -40,8 +40,10 @@ void Actor::Material(PxMaterial * new_material, PxU32 shape_index)
 	for (PxU32 i = 0; i < shape_list.size(); i++)
 	{
 		std::vector<PxMaterial*> materials(shape_list[i]->getNbMaterials());
+
 		for (unsigned int j = 0; j < materials.size(); j++)
 			materials[j] = new_material;
+
 		shape_list[i]->setMaterials(materials.data(), (PxU16)materials.size());
 	}
 }
@@ -49,6 +51,7 @@ void Actor::Material(PxMaterial * new_material, PxU32 shape_index)
 PxShape* Actor::GetShape(PxU32 index)
 {
 	std::vector<PxShape*> shapes(((PxRigidActor*)actor)->getNbShapes());
+
 	if (index < ((PxRigidActor*)actor)->getShapes((PxShape * *)& shapes.front(), (PxU32)shapes.size()))
 		return shapes[index];
 	else
@@ -58,13 +61,14 @@ PxShape* Actor::GetShape(PxU32 index)
 std::vector<PxShape*> Actor::GetShapes(PxU32 index)
 {
 	std::vector<PxShape*> shapes(((PxRigidActor*)actor)->getNbShapes());
+
 	((PxRigidActor*)actor)->getShapes((PxShape * *)& shapes.front(), (PxU32)shapes.size());
+
 	if (index == -1)
 		return shapes;
+
 	else if (index < shapes.size())
-	{
 		return std::vector<PxShape*>(1, shapes[index]);
-	}
 	else
 		return std::vector<PxShape*>();
 }
@@ -83,6 +87,7 @@ std::string Actor::Name()
 DynamicActor::DynamicActor(const PxTransform& pose) : Actor()
 {
 	actor = (PxActor*)GetPhysics()->createRigidDynamic(pose);
+
 	Name("");
 }
 
@@ -142,9 +147,12 @@ StaticActor::~StaticActor()
 void StaticActor::CreateShape(const PxGeometry & geometry, PxReal density)
 {
 	PxShape* shape = ((PxRigidStatic*)actor)->createShape(geometry, *GetMaterial());
+
 	colors.push_back(default_color);
-	//pass the color pointers to the renderer
+
+	//Pass the color pointers to the renderer
 	shape->userData = new UserData();
+
 	for (unsigned int i = 0; i < colors.size(); i++)
 		((UserData*)GetShape(i)->userData)->color = &colors[i];
 }

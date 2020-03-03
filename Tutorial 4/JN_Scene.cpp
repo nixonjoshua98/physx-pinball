@@ -5,20 +5,14 @@
 
 #include <iostream>
 
-// http://www.falstad.com/dotproduct/
-
 void JN_Scene::Init()
 {
-#if PX_PHYSICS_VERSION < 0x304000
-	throw new Exception("SDK version is less than 3.4");
-#endif
-
 	PxSceneDesc scene_desc(GetPhysics()->getTolerancesScale());
 	
 	// Set number of CPU threads
 	if (!scene_desc.cpuDispatcher)
 	{
-		scene_desc.cpuDispatcher = PxDefaultCpuDispatcherCreate(2);
+		scene_desc.cpuDispatcher = PxDefaultCpuDispatcherCreate(1);
 	}
 
 	// Set shader
@@ -31,7 +25,7 @@ void JN_Scene::Init()
 		throw new Exception("Physics scene failed to be created.");
 
 	// Earth gravity: (0.0f, -9.81f, 0.0f)
-	physics_scene->setGravity(PxVec3(0.0f, -9.81, 8.0));
+	physics_scene->setGravity(PxVec3(0.0f, -9.81, 2.5));
 
 	CustomInit();
 

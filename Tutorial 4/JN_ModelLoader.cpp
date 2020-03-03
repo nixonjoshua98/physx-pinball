@@ -34,6 +34,7 @@ void JN_ModelLoader::Load(std::string file)
 		// Iterate through the file line by line
 		while (std::getline(stream, line))
 		{
+			// New object
 			if (line[0] == 'o')
 			{
 				++objectID;

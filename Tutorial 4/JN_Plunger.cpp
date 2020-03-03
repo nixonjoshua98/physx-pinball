@@ -11,9 +11,9 @@ using namespace PhysicsEngine;
 
 JN_Plunger::JN_Plunger(PxTransform pose)
 {
-	box = new Box(pose, { 0.25f, 0.25f, 4 });
+	box = new Box(pose, { 0.25f, 0.25f, 1 });
 
-	joint = PxD6JointCreate(*GetPhysics(), NULL, pose, (PxRigidActor*)box->Get(), PxTransform(PxVec3(0.f, 0.f, 0.f)));
+	joint = PxD6JointCreate(*GetPhysics(), NULL, pose, box->Get()->is<PxRigidActor>(), PxTransform(PxVec3(0.f, 0.f, 0.f)));
 
 	joint->setMotion(PxD6Axis::eZ, PxD6Motion::eLIMITED);
 	joint->setDrive(PxD6Drive::eZ, PxD6JointDrive(100.0f, 25.f, PX_MAX_F32, false));

@@ -38,6 +38,7 @@ private:
 	void CreateFrame();
 	void CreateHexagons();
 	void CreatePlunger();
+	void CreateSpinner();
 
 	void CustomInit() override;
 	void CustomUpdate(PxReal delta) override;
