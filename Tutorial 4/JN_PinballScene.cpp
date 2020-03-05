@@ -6,7 +6,6 @@
 #include "JN_Hexagon.h"
 #include "JN_Functions.h"
 #include "JN_Spinner.h"
-
 #include "JN_Model.h"
 
 
@@ -62,6 +61,16 @@ void JN_PinballScene::CreateFrame()
 	frame->AddToScene(this);
 }
 
+void JN_PinballScene::CreatePaddles()
+{
+	// Rotated by 22 degrees
+	paddles[0] = new JN_Paddle(PxTransform({ -1.85f, 5.5f, 8.9f }, { 0.981627183447664, 0, 00.1908089953765448, 0 }), { 1.0f, 0.25f, 0.125f });
+	paddles[1] = new JN_Paddle(PxTransform({ 00.85f, 5.5f, 8.9f }, { 0.981627183447664, 0, -0.1908089953765448, 0 }), { 1.0f, 0.25f, 0.125f });
+
+	paddles[0]->AddToScene(this);
+	paddles[1]->AddToScene(this);
+}
+
 void JN_PinballScene::CreateHexagons()
 {
 	JN_Hexagon* leftTop  = new JN_Hexagon({ -3.5f, 5.75f, -5.0f }, 0.5f);
@@ -108,6 +117,7 @@ void JN_PinballScene::CustomInit()
 	CreateSpinner();
 	CreateHexagons();
 	CreatePlunger();
+	CreatePaddles();
 	CreateBall();
 }
 
@@ -127,6 +137,15 @@ void JN_PinballScene::OnKeyPressed(int key)
 		plunger->Activate(-15.0f);
 		break;
 
+		// R
+	case 82:
+		paddles[0]->Activate(5.0f);
+		break;
+
+		// T
+	case 84:
+		paddles[1]->Activate(5.0f);
+		break;
 	}
 }
 

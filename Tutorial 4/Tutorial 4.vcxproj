@@ -34,6 +34,7 @@
     <ClInclude Include="JN_Functions.h" />
     <ClInclude Include="JN_Model.h" />
     <ClInclude Include="JN_ModelLoader.h" />
+    <ClInclude Include="JN_Paddle.h" />
     <ClInclude Include="JN_PinballFrame.h" />
     <ClInclude Include="JN_PinballScene.h" />
     <ClInclude Include="JN_Plunger.h" />
@@ -52,6 +53,7 @@
     <ClCompile Include="JN_Hexagon.cpp" />
     <ClCompile Include="JN_Model.cpp" />
     <ClCompile Include="JN_ModelLoader.cpp" />
+    <ClCompile Include="JN_Paddle.cpp" />
     <ClCompile Include="JN_PinballFrame.cpp" />
     <ClCompile Include="JN_PinballScene.cpp" />
     <ClCompile Include="JN_Plunger.cpp" />

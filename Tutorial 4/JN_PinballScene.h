@@ -6,6 +6,7 @@
 
 #include "JN_BasicActors.h"
 #include "JN_Plunger.h"
+#include "JN_Paddle.h"
 #include "JN_Model.h"
 
 
@@ -33,9 +34,12 @@ private:
 	JN_Plunger* plunger;
 	JN_Model* frame;
 
+	JN_Paddle* paddles[2];
+
 	void CreatePlane();
 	void CreateBall();
 	void CreateFrame();
+	void CreatePaddles();
 	void CreateHexagons();
 	void CreatePlunger();
 	void CreateSpinner();

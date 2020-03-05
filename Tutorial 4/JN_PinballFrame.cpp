@@ -20,7 +20,7 @@ void JN_PinballFrame::Create()
 
 	model->Get()->is<PxRigidActor>()->setGlobalPose(PxTransform({ 0, 5, 0 }));
 
-	PxMaterial* cornerMaterial = CreateMaterial(0.0f, 0.0f, 1.5f);
+	PxMaterial* cornerMaterial = CreateMaterial(0.0f, 0.0f, 2.5f);
 
 	model->Material(cornerMaterial, 0);
 	model->Material(cornerMaterial, 2);

@@ -5,7 +5,7 @@ namespace Actors
 {
 	JN_Spinner::JN_Spinner(const PxTransform& pose, PxVec3 dimensions, PxReal density) : Box(pose, dimensions, density)
 	{
-		Color(Helpers::RGB(255, 0, 0));
+		Color(Helpers::RGB(220, 220, 220));
 
 		PxQuat q = PxQuat(0.0f, 0.0f, 0.7071067811865476f, 0.7071067811865476f);
 
@@ -21,6 +21,6 @@ namespace Actors
 	{
 		scene->Add(this);
 
-		joint->DriveVelocity(-5.f);
+		joint->DriveVelocity(-2.5f);
 	}
 }
