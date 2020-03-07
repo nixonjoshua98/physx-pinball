@@ -4,21 +4,22 @@
 #include "JN_Scene.h"
 
 using namespace physx;
-using namespace Actors;
 
-class JN_Plunger
+
+namespace Actors
 {
-public:
-	JN_Plunger(PxTransform pose = PxTransform(PxIdentity));
+	class JN_Plunger
+	{
+	public:
+		JN_Plunger(PxTransform pose = PxTransform(PxIdentity));
 
-	// Trigger the plunger
-	void Activate(PxReal force);
+		void Activate(PxReal force);
 
-	void AddToScene(JN_Scene* scene);
+		void AddToScene(JN_Scene* scene);
 
-private:
-	Box* box;
+	private:
+		Box* box;
 
-	PxD6Joint* joint;
-};
-
+		PxD6Joint* joint;
+	};
+}

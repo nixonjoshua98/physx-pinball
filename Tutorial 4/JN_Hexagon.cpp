@@ -2,6 +2,8 @@
 
 #include <vector>
 
+using namespace Actors;
+
 
 JN_Hexagon::JN_Hexagon(const PxTransform& pose, PxReal height, PxReal radius) : convex(0)
 {
@@ -36,7 +38,7 @@ JN_Hexagon::JN_Hexagon(const PxTransform& pose, PxReal height, PxReal radius) : 
 		verts[i] += pose.p;
 	}
 
-	convex = new ConvexMesh(verts);
+	convex = new JN_ConvexMesh(verts);
 
 	convex->Color({ 0, 0, 0 });
 	convex->Material(hexMaterial);

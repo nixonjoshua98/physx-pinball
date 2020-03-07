@@ -8,6 +8,8 @@
 #include "PhysicsEngine.h"
 
 using namespace PhysicsEngine;
+using namespace Actors;
+
 
 JN_Plunger::JN_Plunger(PxTransform pose)
 {
