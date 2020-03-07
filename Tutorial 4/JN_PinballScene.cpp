@@ -68,7 +68,7 @@ void JN_PinballScene::CreateFrame()
 void JN_PinballScene::CreatePaddles()
 {
 	// Rotated by 22 degrees
-	paddles[0] = new JN_Paddle(PxTransform({ -1.85f, 5.5f, 8.9f }, { 0.981627183447664, 0, 00.1908089953765448, 0 }), { 1.0f, 0.25f, 0.125f });
+	paddles[0] = new JN_Paddle(PxTransform({ -1.85f, 5.5f, 8.9f }, { 0.981627183447664, 0, 0.19080899537654480, 0 }), { 1.0f, 0.25f, 0.125f });
 	paddles[1] = new JN_Paddle(PxTransform({ 00.85f, 5.5f, 8.9f }, { 0.981627183447664, 0, -0.1908089953765448, 0 }), { 1.0f, 0.25f, 0.125f });
 
 	paddles[0]->AddToScene(this);
@@ -77,17 +77,20 @@ void JN_PinballScene::CreatePaddles()
 
 void JN_PinballScene::CreateHexagons()
 {
-	JN_Hexagon* leftTop = new JN_Hexagon({ -3.5f, 5.5f, -5.0f });
-	JN_Hexagon* rightTop = new JN_Hexagon({ 2.50f, 5.5f, -5.0f });
+	std::vector<PxVec3> positions {
+		{ -0.5f, 5.5f, -5.0f },
+		{ -3.5f, 5.5f, -3.0f },
+		{ 2.50f, 5.5f, -3.0f },
+		{ 2.50f, 5.5f, +5.0f },
+		{ -3.5f, 5.5f, +5.0f },
+	};
 
-	JN_Hexagon* leftBtm  = new JN_Hexagon({ -3.5f, 5.5f, 5.0f });
-	JN_Hexagon* rightBtm = new JN_Hexagon({ 2.50f, 5.5f, 5.0f });
+	for (PxVec3 v : positions)
+	{
+		JN_Hexagon* hex = new JN_Hexagon(PxTransform(v));
 
-	leftTop->AddToScene(this);
-	leftBtm->AddToScene(this);
-
-	rightTop->AddToScene(this);
-	rightBtm->AddToScene(this);
+		hex->AddToScene(this);
+	}
 }
 
 void JN_PinballScene::CreatePlunger()
@@ -99,8 +102,8 @@ void JN_PinballScene::CreatePlunger()
 
 void JN_PinballScene::CreateSpinners()
 {
-	JN_Spinner* left = new JN_Spinner({ -1.5f, 5.5f, 0.f }, { 1.25f, 0.25f, 0.125f });
-	JN_Spinner* right = new JN_Spinner({ 1.0f, 5.5f, 0.f }, { 1.25f, 0.25f, 0.125f });
+	JN_Spinner* left = new JN_Spinner({ -1.5f, 5.5f, 0.f }, { 1.25f, 0.25f, 0.125f }, 1.0f, 2.50f);
+	JN_Spinner* right = new JN_Spinner({ 1.0f, 5.5f, 0.f }, { 1.25f, 0.25f, 0.125f }, 1.0f, -2.5f);
 
 	left->AddToScene(this);
 	right->AddToScene(this);
@@ -117,7 +120,6 @@ void JN_PinballScene::CustomInit()
 	// Materials
 	ballMaterial = GetPhysics()->createMaterial(0.0f, 0.15f, 0.0f);
 
-	// Objects
 	CreatePlane();
 	CreateFrame();
 	CreateSpinners();

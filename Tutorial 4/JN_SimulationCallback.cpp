@@ -24,8 +24,6 @@ void JN_SimulationCallback::onTrigger(PxTriggerPair* pairs, PxU32 count)
 		{
 			if (other == "Ball" && trigger == "DeathTrigger")
 			{
-				std::cout << "DeadBall\n";
-
 				dead_ball_trigger = true;
 			}
 		}
@@ -34,7 +32,9 @@ void JN_SimulationCallback::onTrigger(PxTriggerPair* pairs, PxU32 count)
 		{
 			if (other == "Ball" && trigger == "DeathTrigger")
 			{
-				std::cout << "DeadBall\n";
+				score -= 100;
+
+				std::cout << "Ball Out of Bounds\n";
 
 				dead_ball_trigger = false;
 			}

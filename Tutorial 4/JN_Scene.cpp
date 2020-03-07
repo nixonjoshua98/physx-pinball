@@ -11,7 +11,7 @@ static PxFilterFlags CustomFilterShader(
 	PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize
 )
 {
-	// let triggers through
+	// Both triggers
 	if (PxFilterObjectIsTrigger(attributes0) || PxFilterObjectIsTrigger(attributes1))
 	{
 		pairFlags = PxPairFlag::eTRIGGER_DEFAULT;
@@ -26,8 +26,6 @@ static PxFilterFlags CustomFilterShader(
 
 	if ((filterData0.word0 & filterData1.word1) && (filterData1.word0 & filterData0.word1))
 	{
-		//Trigger onContact callback for this pair of objects
-
 		pairFlags |= PxPairFlag::eNOTIFY_TOUCH_FOUND;
 		pairFlags |= PxPairFlag::eNOTIFY_TOUCH_LOST;
 	}
@@ -54,7 +52,7 @@ void JN_Scene::Init()
 	// Set shader
 	scene_desc.filterShader = filter_shader;
 
-	// Continous collision - stops the ball going through objects
+	// Continous collision - Stops the ball going through objects
 	scene_desc.flags |= PxSceneFlag::eENABLE_CCD;
 
 	// Create the scene for the physics world from the description
@@ -64,7 +62,7 @@ void JN_Scene::Init()
 		throw new Exception("Physics scene failed to be created.");
 
 	// Earth gravity: (0.0f, -9.81f, 0.0f)
-	physics_scene->setGravity(PxVec3(0.0f, -9.81, 2.5));
+	physics_scene->setGravity(PxVec3(0.0f, -9.81, 2.5f));
 
 	CustomInit();
 
@@ -83,7 +81,6 @@ void JN_Scene::Update(PxReal delta)
 
 		physics_scene->simulate(delta);
 
-		// Save the simulation results
 		physics_scene->fetchResults(true);
 	}
 }
