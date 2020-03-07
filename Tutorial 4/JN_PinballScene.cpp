@@ -7,7 +7,8 @@
 #include "JN_Functions.h"
 #include "JN_Spinner.h"
 #include "JN_Model.h"
-#include "JN_Sphere.h"
+
+#include "JN_TriggerBox.h"
 
 
 using namespace Actors;
@@ -46,7 +47,7 @@ void JN_PinballScene::CreatePlane()
 
 void JN_PinballScene::CreateBall()
 {
-	JN_Sphere* ball = new JN_Sphere({ -3.0f, 5.25f, 3.0f }, 0.2f, 3.0f);
+	ball = new JN_Sphere({ 4.25f, 5.25f, 8.0f }, 0.2f, 3.0f);
 
 	ball->Color({ 1, 0, 0 });
 	ball->Material(ballMaterial);
@@ -58,7 +59,10 @@ void JN_PinballScene::CreateFrame()
 {
 	JN_PinballFrame* frame = new JN_PinballFrame();
 
+	JN_TriggerBox* deathBox = new JN_TriggerBox("DeathTrigger", PxTransform({ -0.5f, 5.5f, 11.4f }), { 4.0f, 0.25f, 0.1f });
+
 	frame->AddToScene(this);
+	deathBox->AddToScene(this);
 }
 
 void JN_PinballScene::CreatePaddles()
@@ -125,7 +129,12 @@ void JN_PinballScene::CustomInit()
 
 void JN_PinballScene::CustomUpdate(PxReal delta)
 {
+	if (simulation_callback->dead_ball_trigger)
+	{
+		physics_scene->removeActor(*ball->Get());
 
+		CreateBall();
+	}
 }
 
 void JN_PinballScene::OnKeyPressed(int key)

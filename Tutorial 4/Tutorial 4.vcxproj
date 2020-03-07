@@ -45,6 +45,7 @@
     <ClInclude Include="JN_Sphere.h" />
     <ClInclude Include="JN_Spinner.h" />
     <ClInclude Include="JN_TriangleMesh.h" />
+    <ClInclude Include="JN_TriggerBox.h" />
     <ClInclude Include="MyPhysicsEngine.h" />
     <ClInclude Include="PhysicsEngine.h" />
     <ClInclude Include="VisualDebugger.h" />
@@ -66,6 +67,7 @@
     <ClCompile Include="JN_SimulationCallback.cpp" />
     <ClCompile Include="JN_Sphere.cpp" />
     <ClCompile Include="JN_Spinner.cpp" />
+    <ClCompile Include="JN_TriggerBox.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
     <ClCompile Include="VisualDebugger.cpp" />
     <ClCompile Include="Tutorial 4.cpp" />

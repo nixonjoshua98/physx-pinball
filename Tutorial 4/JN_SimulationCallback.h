@@ -10,6 +10,8 @@ public:
 	JN_SimulationCallback();
 	~JN_SimulationCallback();
 
+	bool dead_ball_trigger = false;
+
 	virtual void onTrigger(PxTriggerPair* pairs, PxU32 count);
 	virtual void onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs);
 	virtual void onConstraintBreak(PxConstraintInfo* constraints, PxU32 count);

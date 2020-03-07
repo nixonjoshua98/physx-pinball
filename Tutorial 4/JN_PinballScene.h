@@ -8,6 +8,7 @@
 #include "JN_Plunger.h"
 #include "JN_Paddle.h"
 #include "JN_Model.h"
+#include "JN_Sphere.h"
 
 #include "JN_SimulationCallback.h"
 
@@ -29,10 +30,9 @@ public:
 private:
 	JN_SimulationCallback* simulation_callback;
 
-	// Materials
 	PxMaterial* ballMaterial;
 
-	// Objects
+	JN_Sphere* ball;
 	JN_Plunger* plunger;
 	JN_Model* frame;
 

@@ -1,9 +1,9 @@
 #include "JN_SimulationCallback.h"
 
 
-
-
 #include <iostream>
+
+
 
 JN_SimulationCallback::JN_SimulationCallback()
 {
@@ -15,7 +15,31 @@ JN_SimulationCallback::~JN_SimulationCallback()
 
 void JN_SimulationCallback::onTrigger(PxTriggerPair* pairs, PxU32 count)
 {
-	std::cout << "onTrigger\n";
+	for (PxU32 i = 0; i < count; i++)
+	{
+		const std::string trigger = std::string(pairs[i].triggerActor->getName());
+		const std::string other = std::string(pairs[i].otherActor->getName());
+
+		if (pairs[i].status & PxPairFlag::eNOTIFY_TOUCH_FOUND)
+		{
+			if (other == "Ball" && trigger == "DeathTrigger")
+			{
+				std::cout << "DeadBall\n";
+
+				dead_ball_trigger = true;
+			}
+		}
+
+		else if (pairs[i].status & PxPairFlag::eNOTIFY_TOUCH_LOST)
+		{
+			if (other == "Ball" && trigger == "DeathTrigger")
+			{
+				std::cout << "DeadBall\n";
+
+				dead_ball_trigger = false;
+			}
+		}
+	}
 }
 
 void JN_SimulationCallback::onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs)
