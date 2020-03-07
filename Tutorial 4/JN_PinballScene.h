@@ -9,6 +9,8 @@
 #include "JN_Paddle.h"
 #include "JN_Model.h"
 
+#include "JN_SimulationCallback.h"
+
 
 class JN_PinballScene : public JN_Scene
 {
@@ -25,7 +27,7 @@ public:
 	void OnKeyReleased(int key);
 
 private:
-	MySimulationEventCallback* my_callback;
+	JN_SimulationCallback* simulation_callback;
 
 	// Materials
 	PxMaterial* ballMaterial;
@@ -42,7 +44,7 @@ private:
 	void CreatePaddles();
 	void CreateHexagons();
 	void CreatePlunger();
-	void CreateSpinner();
+	void CreateSpinners();
 
 	void CustomInit() override;
 	void CustomUpdate(PxReal delta) override;

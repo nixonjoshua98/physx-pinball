@@ -73,6 +73,20 @@ std::vector<PxShape*> Actor::GetShapes(PxU32 index)
 		return std::vector<PxShape*>();
 }
 
+void Actor::SetTrigger(bool value, PxU32 index)
+{
+	std::vector<PxShape*> shape_list = GetShapes(index);
+
+	for (PxU32 i = 0; i < shape_list.size(); i++)
+	{
+		// Cannot be in simulation and be a trigger at the same time
+
+		shape_list[i]->setFlag(PxShapeFlag::eSIMULATION_SHAPE, !value);
+
+		shape_list[i]->setFlag(PxShapeFlag::eTRIGGER_SHAPE, value);
+	}
+}
+
 void Actor::Name(const std::string & new_name)
 {
 	name = new_name;

@@ -290,18 +290,12 @@ namespace VisualDebugger
 		{
 			PxVec3 shadow_color = default_color * 0.9;
 			for (PxU32 i = 0; i < numActors; i++) {
-#if PX_PHYSICS_VERSION < 0x304000 // SDK 3.3
-				if (actors[i]->isCloth()) {
-#else
+
 				if (actors[i]->is<PxCloth>()) {
-#endif
 					RenderCloth((PxCloth*)actors[i]);
 				}
-#if PX_PHYSICS_VERSION < 0x304000 // SDK 3.3
-				else if (actors[i]->isRigidActor()) {
-#else
+
 				else if (actors[i]->is<PxRigidActor>()) {
-#endif
 					PxRigidActor* rigid_actor = (PxRigidActor*)actors[i];
 					std::vector<PxShape*> shapes(rigid_actor->getNbShapes());
 					rigid_actor->getShapes((PxShape**)&shapes.front(), (PxU32)shapes.size());
@@ -309,6 +303,14 @@ namespace VisualDebugger
 					for (PxU32 j = 0; j < shapes.size(); j++)
 					{
 						const PxShape* shape = shapes[j];
+
+						// Invisible Object
+						if (!shape->getFlags().isSet(PxShapeFlag::eVISUALIZATION))
+						{
+							continue;
+						}
+
+
 						PxTransform pose = PxShapeExt::getGlobalPose(*shape, *shape->getActor());
 						PxGeometryHolder h = shape->getGeometry();
 						//move the plane slightly down to avoid visual artefacts

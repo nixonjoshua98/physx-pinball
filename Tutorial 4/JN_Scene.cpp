@@ -5,6 +5,42 @@
 
 #include <iostream>
 
+static PxFilterFlags CustomFilterShader(
+	PxFilterObjectAttributes attributes0, PxFilterData filterData0,
+	PxFilterObjectAttributes attributes1, PxFilterData filterData1,
+	PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize
+)
+{
+	// let triggers through
+	if (PxFilterObjectIsTrigger(attributes0) || PxFilterObjectIsTrigger(attributes1))
+	{
+		pairFlags = PxPairFlag::eTRIGGER_DEFAULT;
+		return PxFilterFlags();
+	}
+
+	pairFlags = PxPairFlag::eCONTACT_DEFAULT;
+
+	pairFlags |= PxPairFlag::eDETECT_CCD_CONTACT;
+
+	// trigger the contact callback for pairs (A,B) where 
+	// the filtermask of A contains the ID of B and vice versa.
+	if ((filterData0.word0 & filterData1.word1) && (filterData1.word0 & filterData0.word1))
+	{
+		//trigger onContact callback for this pair of objects
+		pairFlags |= PxPairFlag::eNOTIFY_TOUCH_FOUND;
+		pairFlags |= PxPairFlag::eNOTIFY_TOUCH_LOST;
+		pairFlags |= PxPairFlag::eNOTIFY_CONTACT_POINTS;
+	}
+
+	return PxFilterFlags();
+}
+
+
+JN_Scene::JN_Scene() : filter_shader(CustomFilterShader)
+{
+
+}
+
 void JN_Scene::Init()
 {
 	PxSceneDesc scene_desc(GetPhysics()->getTolerancesScale());
@@ -16,7 +52,10 @@ void JN_Scene::Init()
 	}
 
 	// Set shader
-	scene_desc.filterShader = PxDefaultSimulationFilterShader;
+	scene_desc.filterShader = filter_shader;
+
+	// Continous collision - stops the ball going through objects
+	scene_desc.flags |= PxSceneFlag::eENABLE_CCD;
 
 	// Create the scene for the physics world from the description
 	physics_scene = GetPhysics()->createScene(scene_desc);

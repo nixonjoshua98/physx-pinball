@@ -15,15 +15,6 @@ namespace Actors
 		}
 	};
 
-	class Sphere : public DynamicActor
-	{
-	public:
-		Sphere(const PxTransform& pose = PxTransform(PxIdentity), PxReal radius = 1.f, PxReal density = 1.f) : DynamicActor(pose)
-		{
-			CreateShape(PxSphereGeometry(radius), density);
-		}
-	};
-
 	class Box : public DynamicActor
 	{
 	public:

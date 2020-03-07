@@ -86,13 +86,13 @@ namespace PhysicsEngine
 	};
 
 	///A customised collision class, implemneting various callbacks
-	class MySimulationEventCallback : public PxSimulationEventCallback
+	class SimulationCallback : public PxSimulationEventCallback
 	{
 	public:
 		//an example variable that will be checked in the main simulation loop
 		bool trigger;
 
-		MySimulationEventCallback() : trigger(false) {}
+		SimulationCallback() : trigger(false) {}
 
 		///Method called when the contact with the trigger object is detected.
 		virtual void onTrigger(PxTriggerPair* pairs, PxU32 count) 
@@ -186,7 +186,7 @@ namespace PhysicsEngine
 	{
 		Plane* plane;
 		Box* box, * box2;
-		MySimulationEventCallback* my_callback;
+		SimulationCallback* my_callback;
 		
 	public:
 		//specify your custom filter shader here
@@ -208,7 +208,7 @@ namespace PhysicsEngine
 			GetMaterial()->setDynamicFriction(.2f);
 
 			///Initialise and set the customised event callback
-			my_callback = new MySimulationEventCallback();
+			my_callback = new SimulationCallback();
 			px_scene->setSimulationEventCallback(my_callback);
 
 			plane = new Plane();

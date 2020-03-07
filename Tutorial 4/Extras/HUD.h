@@ -21,6 +21,7 @@ namespace VisualDebugger
 		HUDScreen(int screen_id, const PxVec3& _color=PxVec3(1.f,1.f,1.f), const PxReal& _font_size=0.024f) :
 			id(screen_id), color(_color), font_size(_font_size)
 		{
+
 		}
 
 		///Add a single line of text

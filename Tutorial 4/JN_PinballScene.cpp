@@ -7,13 +7,14 @@
 #include "JN_Functions.h"
 #include "JN_Spinner.h"
 #include "JN_Model.h"
+#include "JN_Sphere.h"
 
 
 using namespace Actors;
 
 
 
-JN_PinballScene::JN_PinballScene(): plunger(0), my_callback(0), frame(0), ballMaterial(0)
+JN_PinballScene::JN_PinballScene()
 {
 
 }
@@ -37,7 +38,7 @@ void JN_PinballScene::SetVisualisation()
 
 void JN_PinballScene::CreatePlane()
 {
-	Plane* plane = new Actors::Plane();
+	Plane* plane = new Plane();
 
 	plane->Color({ 210.f / 255.f, 210.f / 255.f, 210.f / 255.f });
 
@@ -46,7 +47,7 @@ void JN_PinballScene::CreatePlane()
 
 void JN_PinballScene::CreateBall()
 {
-	Actors::Sphere* ball = new Actors::Sphere({ 4.25f, 5.25f, 5.0f }, 0.20f);
+	JN_Sphere* ball = new JN_Sphere({ -3.0f, 5.25f, 3.0f }, 0.2f, 3.0f);
 
 	ball->Color({ 1, 0, 0 });
 	ball->Material(ballMaterial);
@@ -73,11 +74,11 @@ void JN_PinballScene::CreatePaddles()
 
 void JN_PinballScene::CreateHexagons()
 {
-	JN_Hexagon* leftTop  = new JN_Hexagon({ -3.5f, 5.75f, -5.0f }, 0.5f);
-	JN_Hexagon* rightTop = new JN_Hexagon({ 2.50f, 5.75f, -5.0f }, 0.5f);
+	JN_Hexagon* leftTop = new JN_Hexagon({ -3.5f, 5.5f, -5.0f });
+	JN_Hexagon* rightTop = new JN_Hexagon({ 2.50f, 5.5f, -5.0f });
 
-	JN_Hexagon* leftBtm  = new JN_Hexagon({ -3.5f, 5.75f, 5.0f }, 0.5f);
-	JN_Hexagon* rightBtm = new JN_Hexagon({ 2.50f, 5.75f, 5.0f }, 0.5f);
+	JN_Hexagon* leftBtm  = new JN_Hexagon({ -3.5f, 5.5f, 5.0f });
+	JN_Hexagon* rightBtm = new JN_Hexagon({ 2.50f, 5.5f, 5.0f });
 
 	leftTop->AddToScene(this);
 	leftBtm->AddToScene(this);
@@ -93,20 +94,22 @@ void JN_PinballScene::CreatePlunger()
 	plunger->AddToScene(this);
 }
 
-void JN_PinballScene::CreateSpinner()
+void JN_PinballScene::CreateSpinners()
 {
-	JN_Spinner* spinner = new JN_Spinner({ -0.5f, 5.75f, 0.f }, { 1.5f, 0.25f, 0.125f });
+	JN_Spinner* left = new JN_Spinner({ -1.5f, 5.5f, 0.f }, { 1.25f, 0.25f, 0.125f });
+	JN_Spinner* right = new JN_Spinner({ 1.0f, 5.5f, 0.f }, { 1.25f, 0.25f, 0.125f });
 
-	spinner->AddToScene(this);
+	left->AddToScene(this);
+	right->AddToScene(this);
 }
 
 void JN_PinballScene::CustomInit()
 {
 	SetVisualisation();
 
-	my_callback = new MySimulationEventCallback();
+	simulation_callback = new JN_SimulationCallback();
 
-	physics_scene->setSimulationEventCallback(my_callback);
+	physics_scene->setSimulationEventCallback(simulation_callback);
 
 	// Materials
 	ballMaterial = GetPhysics()->createMaterial(0.0f, 0.15f, 0.0f);
@@ -114,7 +117,7 @@ void JN_PinballScene::CustomInit()
 	// Objects
 	CreatePlane();
 	CreateFrame();
-	CreateSpinner();
+	CreateSpinners();
 	CreateHexagons();
 	CreatePlunger();
 	CreatePaddles();
@@ -134,7 +137,7 @@ void JN_PinballScene::OnKeyPressed(int key)
 	{
 		// Space
 	case 32:
-		plunger->Activate(-15.0f);
+		plunger->Activate(-20.0f);
 		break;
 
 		// R

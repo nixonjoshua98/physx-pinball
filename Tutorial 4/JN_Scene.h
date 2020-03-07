@@ -11,7 +11,7 @@ using namespace PhysicsEngine;
 class JN_Scene
 {
 public:
-	JN_Scene(PxSimulationFilterShader custom_filter_shader = PxDefaultSimulationFilterShader) : filter_shader(custom_filter_shader) {}
+	JN_Scene();
 
 	// Init the scene
 	void Init();

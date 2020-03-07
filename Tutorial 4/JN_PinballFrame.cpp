@@ -18,9 +18,11 @@ void JN_PinballFrame::Create()
 	model->Color(Helpers::RGB(155, 203, 136), 2);	// Corner
 	model->Color(Helpers::RGB(255, 203, 136), 3);	// Frame
 
+	model->GetShape(4)->setFlag(PxShapeFlag::eVISUALIZATION, false);
+
 	model->Get()->is<PxRigidActor>()->setGlobalPose(PxTransform({ 0, 5, 0 }));
 
-	PxMaterial* cornerMaterial = CreateMaterial(0.0f, 0.0f, 2.5f);
+	PxMaterial* cornerMaterial = CreateMaterial(0.0f, 0.0f, 1.0f);
 
 	model->Material(cornerMaterial, 0);
 	model->Material(cornerMaterial, 2);

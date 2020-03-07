@@ -21,7 +21,9 @@ namespace VisualDebugger
 	{
 		EMPTY = 0,
 		HELP = 1,
-		PAUSE = 2
+		PAUSE = 2,
+
+		SIMULATION = 3
 	};
 
 	//function declarations
@@ -67,7 +69,7 @@ namespace VisualDebugger
 		Renderer::InitWindow(window_name, width, height);
 		Renderer::Init();
 
-		camera = new Camera(PxVec3(0.0f, 18.f, 24.0f), { 0.f, -0.6, -0.8f }, 5.f);
+		camera = new Camera(PxVec3(0.3f, 18.f, 14.0f), { 0.f, -0.8, -0.6f }, 5.f);
 
 		// Initialise HUD
 		HUDInit();
@@ -99,7 +101,6 @@ namespace VisualDebugger
 		//add an empty screen
 		hud.AddLine(EMPTY, "");
 		//add a help screen
-		hud.AddLine(HELP, " Simulation");
 		hud.AddLine(HELP, "    F9 - select next actor");
 		hud.AddLine(HELP, "    F10 - pause");
 		hud.AddLine(HELP, "    F12 - reset");
@@ -201,9 +202,17 @@ namespace VisualDebugger
 	{
 	}
 
+#define PRINT_V3(v) std::cout << v.x << ", " << v.y << ", " << v.z << std::endl;
+
 	//handle camera control keys
 	void CameraInput(int key)
 	{
+		//std::cout << "Eye: ";
+		//PRINT_V3(camera->getEye());
+
+		//std::cout << "Dir: ";
+		//PRINT_V3(camera->getDir());
+
 		switch (toupper(key))
 		{
 		case 'W':
