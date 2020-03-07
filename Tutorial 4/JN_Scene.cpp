@@ -15,6 +15,7 @@ static PxFilterFlags CustomFilterShader(
 	if (PxFilterObjectIsTrigger(attributes0) || PxFilterObjectIsTrigger(attributes1))
 	{
 		pairFlags = PxPairFlag::eTRIGGER_DEFAULT;
+
 		return PxFilterFlags();
 	}
 
@@ -22,14 +23,13 @@ static PxFilterFlags CustomFilterShader(
 
 	pairFlags |= PxPairFlag::eDETECT_CCD_CONTACT;
 
-	// trigger the contact callback for pairs (A,B) where 
-	// the filtermask of A contains the ID of B and vice versa.
+
 	if ((filterData0.word0 & filterData1.word1) && (filterData1.word0 & filterData0.word1))
 	{
-		//trigger onContact callback for this pair of objects
+		//Trigger onContact callback for this pair of objects
+
 		pairFlags |= PxPairFlag::eNOTIFY_TOUCH_FOUND;
 		pairFlags |= PxPairFlag::eNOTIFY_TOUCH_LOST;
-		pairFlags |= PxPairFlag::eNOTIFY_CONTACT_POINTS;
 	}
 
 	return PxFilterFlags();

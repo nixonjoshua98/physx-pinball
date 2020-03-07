@@ -1,5 +1,7 @@
 #include "JN_Paddle.h"
 
+#include "JN_FilterGroup.h"
+
 using namespace Actors;
 
 JN_Paddle::JN_Paddle(const PxTransform& pose, PxVec3 dimensions, PxReal density) : Box(pose, dimensions, density), joint(0)
@@ -7,6 +9,10 @@ JN_Paddle::JN_Paddle(const PxTransform& pose, PxVec3 dimensions, PxReal density)
 	joint = new RevoluteJoint(nullptr, pose, this, PxTransform(PxVec3(PxIdentity)));
 
 	//joint->SetLimits(-0.5f, 0.5f);
+
+	Name("Paddle");
+
+	SetupFiltering(JN_FilterGroup::PADDLES, JN_FilterGroup::BALLS);
 }
 
 JN_Paddle::~JN_Paddle()

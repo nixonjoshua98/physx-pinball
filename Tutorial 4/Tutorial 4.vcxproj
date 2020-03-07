@@ -31,6 +31,7 @@
     <ClInclude Include="JN_BaseActors.h" />
     <ClInclude Include="JN_BasicActors.h" />
     <ClInclude Include="JN_Cloth.h" />
+    <ClInclude Include="JN_FilterGroup.h" />
     <ClInclude Include="JN_Hexagon.h" />
     <ClInclude Include="JN_Functions.h" />
     <ClInclude Include="JN_Model.h" />

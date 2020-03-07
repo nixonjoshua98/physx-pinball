@@ -22,8 +22,6 @@ namespace VisualDebugger
 		EMPTY = 0,
 		HELP = 1,
 		PAUSE = 2,
-
-		SIMULATION = 3
 	};
 
 	//function declarations

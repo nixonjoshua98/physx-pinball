@@ -87,6 +87,23 @@ void Actor::SetTrigger(bool value, PxU32 index)
 	}
 }
 
+void Actors::Actor::SetupFiltering(PxU32 filterGroup, PxU32 filterMask, PxU32 shape_index)
+{
+	std::vector<PxShape*> shape_list = GetShapes(shape_index);
+
+	PxFilterData filterData = PxFilterData();
+
+	filterData.word0 = filterGroup;
+	filterData.word1 = filterMask;
+
+	for (PxU32 i = 0; i < shape_list.size(); i++)
+	{
+		PxShape* shape = shape_list[i];
+
+		shape->setSimulationFilterData(filterData);
+	}
+}
+
 void Actor::Name(const std::string & new_name)
 {
 	name = new_name;

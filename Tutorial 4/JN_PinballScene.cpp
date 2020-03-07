@@ -16,7 +16,6 @@ using namespace Actors;
 
 JN_PinballScene::JN_PinballScene()
 {
-
 }
 
 void JN_PinballScene::SetVisualisation()

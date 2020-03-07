@@ -1,4 +1,5 @@
 #include "JN_Hexagon.h"
+#include "JN_FilterGroup.h"
 
 #include <vector>
 
@@ -43,6 +44,10 @@ JN_Hexagon::JN_Hexagon(const PxTransform& pose, PxReal height, PxReal radius) : 
 	convex->Color({ 0, 0, 0 });
 	convex->Material(hexMaterial);
 	convex->SetKinematic(true);
+
+	convex->Name("Hexagon");
+
+	convex->SetupFiltering(JN_FilterGroup::HEXAGONS, JN_FilterGroup::BALLS);
 }
 
 JN_Hexagon::~JN_Hexagon()

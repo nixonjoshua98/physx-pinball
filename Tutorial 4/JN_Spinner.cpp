@@ -1,5 +1,6 @@
 #include "JN_Spinner.h"
 #include "JN_Functions.h"
+#include "JN_FilterGroup.h"
 
 namespace Actors
 {
@@ -10,6 +11,10 @@ namespace Actors
 		PxQuat q = PxQuat(0.0f, 0.0f, 0.7071067811865476f, 0.7071067811865476f);
 
 		joint = new RevoluteJoint(nullptr, pose * PxTransform(q), this, PxTransform(PxVec3(PxIdentity), q));
+
+		Name("Spinner");
+
+		SetupFiltering(JN_FilterGroup::SPINNERS, JN_FilterGroup::BALLS);
 	}
 
 	JN_Spinner::~JN_Spinner()
