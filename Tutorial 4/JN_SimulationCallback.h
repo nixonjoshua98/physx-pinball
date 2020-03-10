@@ -19,6 +19,8 @@ public:
 	virtual void onSleep(PxActor** actors, PxU32 count);
 	virtual void onAdvance(const PxRigidBody* const* bodyBuffer, const PxTransform* poseBuffer, const PxU32 count);
 
+	int Score() { return score; }
+
 private:
 	int score = 0;
 };

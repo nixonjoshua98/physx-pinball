@@ -2,6 +2,8 @@
 
 #include "MyPhysicsEngine.h"
 
+#include "Extras/HUD.h"
+
 #include "JN_Scene.h"
 
 #include "JN_BasicActors.h"
@@ -27,6 +29,8 @@ public:
 	void OnKeyPressed(int key);
 	void OnKeyReleased(int key);
 
+	void CustomRender() override;
+
 private:
 	JN_SimulationCallback* simulation_callback;
 
@@ -35,6 +39,8 @@ private:
 	JN_Sphere* ball;
 	JN_Plunger* plunger;
 	JN_Model* frame;
+	
+	VisualDebugger::HUD HUD;
 
 	JN_Paddle* paddles[2];
 
@@ -45,6 +51,8 @@ private:
 	void CreateHexagons();
 	void CreatePlunger();
 	void CreateSpinners();
+
+	void UpdateHUD();
 
 	void CustomInit() override;
 	void CustomUpdate(PxReal delta) override;

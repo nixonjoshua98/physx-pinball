@@ -6,9 +6,11 @@ using namespace Actors;
 
 JN_Paddle::JN_Paddle(const PxTransform& pose, PxVec3 dimensions, PxReal density) : Box(pose, dimensions, density), joint(0)
 {
-	joint = new RevoluteJoint(nullptr, pose, this, PxTransform(PxVec3(PxIdentity)));
+	PxTransform second_pose = pose;
 
-	//joint->SetLimits(-0.5f, 0.5f);
+	second_pose.p.x += 2.0f;
+
+	joint = new RevoluteJoint(nullptr, pose, this, second_pose);
 
 	Name("Paddle");
 

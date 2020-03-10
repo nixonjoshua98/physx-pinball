@@ -34,8 +34,6 @@ void JN_SimulationCallback::onTrigger(PxTriggerPair* pairs, PxU32 count)
 			{
 				score -= 100;
 
-				std::cout << "Ball Out of Bounds\n";
-
 				dead_ball_trigger = false;
 			}
 		}
@@ -52,8 +50,6 @@ void JN_SimulationCallback::onContact(const PxContactPairHeader& pairHeader, con
 			const std::string actor1name = pairHeader.actors[0]->getName();
 			const std::string actor2name = pairHeader.actors[1]->getName();
 
-			std::cout << actor1name << " hit " << actor2name << std::endl;
-
 			if (actor1name == "Hexagon" || actor2name == "Hexagon")
 			{
 				score += 500;
@@ -66,8 +62,6 @@ void JN_SimulationCallback::onContact(const PxContactPairHeader& pairHeader, con
 			{
 				score += 250;
 			}
-
-			std::cout << "Score: " << score << std::endl;
 		}
 	}
 }

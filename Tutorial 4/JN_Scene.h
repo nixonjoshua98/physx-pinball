@@ -25,6 +25,9 @@ public:
 	// User defined update step
 	virtual void CustomUpdate(PxReal delta) {}
 
+	// User defined render step
+	virtual void CustomRender() {};
+
 	// Add actor to the scene
 	void Add(Actors::Actor* actor);
 

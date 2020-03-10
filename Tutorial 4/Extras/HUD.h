@@ -4,6 +4,10 @@
 #include <string>
 #include <list>
 
+#include "PxPhysicsAPI.h"
+
+using namespace physx;
+
 namespace VisualDebugger
 {
 	using namespace std;

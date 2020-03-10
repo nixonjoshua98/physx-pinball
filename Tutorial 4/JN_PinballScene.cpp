@@ -13,6 +13,8 @@
 
 using namespace Actors;
 
+const int SIMULATION = 0;
+
 
 
 JN_PinballScene::JN_PinballScene()
@@ -68,8 +70,8 @@ void JN_PinballScene::CreateFrame()
 void JN_PinballScene::CreatePaddles()
 {
 	// Rotated by 22 degrees
-	paddles[0] = new JN_Paddle(PxTransform({ -1.85f, 5.5f, 8.9f }, { 0.981627183447664, 0, 0.19080899537654480, 0 }), { 1.0f, 0.25f, 0.125f });
-	paddles[1] = new JN_Paddle(PxTransform({ 00.85f, 5.5f, 8.9f }, { 0.981627183447664, 0, -0.1908089953765448, 0 }), { 1.0f, 0.25f, 0.125f });
+	paddles[0] = new JN_Paddle(PxTransform({ -1.85f, 6.5f, 8.9f }, { 0.981627183447664, 0, 0.19080899537654480, 0 }), { 1.0f, 0.25f, 0.125f });
+	paddles[1] = new JN_Paddle(PxTransform({ 00.85f, 6.5f, 8.9f }, { 0.981627183447664, 0, -0.1908089953765448, 0 }), { 1.0f, 0.25f, 0.125f });
 
 	paddles[0]->AddToScene(this);
 	paddles[1]->AddToScene(this);
@@ -109,6 +111,17 @@ void JN_PinballScene::CreateSpinners()
 	right->AddToScene(this);
 }
 
+void JN_PinballScene::UpdateHUD()
+{
+	HUD.Clear();
+
+	HUD.AddLine(SIMULATION, "Score: " + std::to_string(simulation_callback->Score()));
+
+	HUD.ActiveScreen(SIMULATION);
+
+	HUD.Color(Helpers::RGB(0, 0, 0));
+}
+
 void JN_PinballScene::CustomInit()
 {
 	SetVisualisation();
@@ -127,6 +140,9 @@ void JN_PinballScene::CustomInit()
 	CreatePlunger();
 	CreatePaddles();
 	CreateBall();
+
+	// Interface
+	UpdateHUD();
 }
 
 void JN_PinballScene::CustomUpdate(PxReal delta)
@@ -168,4 +184,11 @@ void JN_PinballScene::OnKeyReleased(int key)
 	{
 
 	}
+}
+
+void JN_PinballScene::CustomRender()
+{
+	UpdateHUD();
+
+	HUD.Render();
 }

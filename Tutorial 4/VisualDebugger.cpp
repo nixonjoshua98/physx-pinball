@@ -165,7 +165,9 @@ namespace VisualDebugger
 			hud.ActiveScreen(EMPTY);
 
 		//render HUD
-		hud.Render();
+		//hud.Render();
+
+		scene->CustomRender();
 
 		//finish rendering
 		Renderer::Finish();
