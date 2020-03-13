@@ -114,14 +114,11 @@ void JN_PinballScene::UpdateHUD()
 
 	HUD.AddLine(SIMULATION, "");
 	HUD.AddLine(SIMULATION, "");
-
 	HUD.AddLine(SIMULATION, "F6   - Toggle Shadows");
 	HUD.AddLine(SIMULATION, "F7   - Toggle Render Mode");
 	HUD.AddLine(SIMULATION, "F8   - Reset Camera");
 	HUD.AddLine(SIMULATION, "F10 - Pause Simulation");
-
 	HUD.AddLine(SIMULATION, "");
-
 	HUD.AddLine(SIMULATION, "Score:        " + std::to_string(simulation_callback->score));
 	HUD.AddLine(SIMULATION, "Balls Left: " + std::to_string(balls_left));
 
