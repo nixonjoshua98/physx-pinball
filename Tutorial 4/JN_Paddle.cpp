@@ -4,17 +4,20 @@
 
 using namespace Actors;
 
-JN_Paddle::JN_Paddle(const PxTransform& pose, PxVec3 dimensions, PxReal density) : Box(pose, dimensions, density), joint(0)
+JN_Paddle::JN_Paddle(const PxTransform& pose, PxVec2 dimensions,  PxReal offset, PxReal density) : Capsule(pose, dimensions, density), joint(0)
 {
-	PxTransform second_pose = pose;
+	PxTransform rotation = PxTransform({ 0.7071067811865476f, 0.7071067811865476f, 0, 0 });
 
-	second_pose.p.x += 2.0f;
+	PxTransform first_pose = pose						* rotation;
+	PxTransform second_pose	= PxTransform({ offset, 0, 0 }) * rotation;
 
-	joint = new RevoluteJoint(nullptr, pose, this, second_pose);
+	joint = new RevoluteJoint(nullptr, first_pose, this, second_pose);
 
 	Name("Paddle");
 
 	SetupFiltering(JN_FilterGroup::PADDLES, JN_FilterGroup::BALLS);
+
+	joint->SetLimits(-0.5f, 0.5f);
 }
 
 JN_Paddle::~JN_Paddle()

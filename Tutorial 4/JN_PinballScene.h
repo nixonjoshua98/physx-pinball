@@ -25,6 +25,8 @@ public:
 
 	void SetVisualisation();
 
+	int balls_left = 3;
+
 	// Events
 	void OnKeyPressed(int key);
 	void OnKeyReleased(int key);

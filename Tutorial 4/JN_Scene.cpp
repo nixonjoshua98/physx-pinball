@@ -144,7 +144,6 @@ void JN_Scene::UnHighlightActor(PxRigidDynamic* actor)
 	}
 }
 
-
 PxRigidDynamic* JN_Scene::GetSelectedActor()
 {
 	return selected_actor;

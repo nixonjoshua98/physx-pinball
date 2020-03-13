@@ -69,9 +69,8 @@ void JN_PinballScene::CreateFrame()
 
 void JN_PinballScene::CreatePaddles()
 {
-	// Rotated by 22 degrees
-	paddles[0] = new JN_Paddle(PxTransform({ -1.85f, 6.5f, 8.9f }, { 0.981627183447664, 0, 0.19080899537654480, 0 }), { 1.0f, 0.25f, 0.125f });
-	paddles[1] = new JN_Paddle(PxTransform({ 00.85f, 6.5f, 8.9f }, { 0.981627183447664, 0, -0.1908089953765448, 0 }), { 1.0f, 0.25f, 0.125f });
+	paddles[0] = new JN_Paddle(PxTransform({ -2.5f, 5.5f, 8.8f }), { 0.25f, 0.5f }, -0.5f);
+	paddles[1] = new JN_Paddle(PxTransform({ 1.5f, 5.5f, 8.8f }), { 0.25f, 0.5f }, 0.5f);
 
 	paddles[0]->AddToScene(this);
 	paddles[1]->AddToScene(this);
@@ -104,18 +103,36 @@ void JN_PinballScene::CreatePlunger()
 
 void JN_PinballScene::CreateSpinners()
 {
-	JN_Spinner* left = new JN_Spinner({ -1.5f, 5.5f, 0.f }, { 1.25f, 0.25f, 0.125f }, 1.0f, 2.50f);
-	JN_Spinner* right = new JN_Spinner({ 1.0f, 5.5f, 0.f }, { 1.25f, 0.25f, 0.125f }, 1.0f, -2.5f);
+	JN_Spinner* spinner = new JN_Spinner({ -0.5f, 5.5f, 1.0f }, { 1.25f, 0.25f, 0.125f }, 1.0f, 1.f);
 
-	left->AddToScene(this);
-	right->AddToScene(this);
+	spinner->AddToScene(this);
 }
 
 void JN_PinballScene::UpdateHUD()
 {
 	HUD.Clear();
 
-	HUD.AddLine(SIMULATION, "Score: " + std::to_string(simulation_callback->Score()));
+	HUD.AddLine(SIMULATION, "");
+	HUD.AddLine(SIMULATION, "");
+	HUD.AddLine(SIMULATION, "");
+
+	HUD.AddLine(SIMULATION, "F6   - Toggle Shadows");
+	HUD.AddLine(SIMULATION, "F7   - Toggle Render Mode");
+	HUD.AddLine(SIMULATION, "F8   - Reset Camera");
+	HUD.AddLine(SIMULATION, "F10 - Pause Simulation");
+
+	HUD.AddLine(SIMULATION, "");
+
+	HUD.AddLine(SIMULATION, "Score:        " + std::to_string(simulation_callback->score));
+	HUD.AddLine(SIMULATION, "Balls Left: " + std::to_string(balls_left));
+
+	if (balls_left == 0)
+	{
+		HUD.AddLine(SIMULATION, " ");
+		HUD.AddLine(SIMULATION, "GAME OVER");
+		HUD.AddLine(SIMULATION, " ");
+		HUD.AddLine(SIMULATION, "P - Restart");
+	}
 
 	HUD.ActiveScreen(SIMULATION);
 
@@ -151,13 +168,16 @@ void JN_PinballScene::CustomUpdate(PxReal delta)
 	{
 		physics_scene->removeActor(*ball->Get());
 
-		CreateBall();
+		balls_left--;
+
+		if (balls_left > 0)
+			CreateBall();
 	}
 }
 
 void JN_PinballScene::OnKeyPressed(int key)
 {
-	// std::cout << key << std::endl;
+	std::cout << key << std::endl;
 
 	switch (key)
 	{
@@ -166,14 +186,26 @@ void JN_PinballScene::OnKeyPressed(int key)
 		plunger->Activate(-20.0f);
 		break;
 
+		// P
+	case 80:
+		if (balls_left == 0)
+		{
+			simulation_callback->score = 0;
+
+			balls_left = 3;
+
+			CreateBall();
+		}
+		break;
+
 		// R
 	case 82:
-		paddles[0]->Activate(5.0f);
+		paddles[0]->Activate(10.0f);
 		break;
 
 		// T
 	case 84:
-		paddles[1]->Activate(5.0f);
+		paddles[1]->Activate(-10.0f);
 		break;
 	}
 }
@@ -182,7 +214,15 @@ void JN_PinballScene::OnKeyReleased(int key)
 {
 	switch (key)
 	{
+		// R
+	case 82:
+		paddles[0]->Activate(-10.0f);
+		break;
 
+		// T
+	case 84:
+		paddles[1]->Activate(10.0f);
+		break;
 	}
 }
 

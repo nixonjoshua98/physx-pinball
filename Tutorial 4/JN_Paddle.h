@@ -11,10 +11,10 @@ using namespace physx;
 
 namespace Actors
 {
-	class JN_Paddle : public Actors::Box
+	class JN_Paddle : public Actors::Capsule
 	{
 	public:
-		JN_Paddle(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(.5f, .5f, .5f), PxReal density = 1.f);
+		JN_Paddle(const PxTransform& pose = PxTransform(PxIdentity), PxVec2 dimensions = PxVec2(1.f, 1.f), PxReal offset = 0.0f, PxReal density = 1.f);
 		~JN_Paddle();
 
 		void AddToScene(JN_Scene* scene);

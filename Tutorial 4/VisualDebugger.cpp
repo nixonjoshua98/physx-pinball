@@ -188,14 +188,7 @@ namespace VisualDebugger
 	{
 		char k = toupper(key);
 
-		switch (k)
-		{
-		case 'R':
-			scene->OnKeyReleased(k);
-			break;
-		default:
-			break;
-		}
+		scene->OnKeyReleased(k);
 	}
 
 	void UserKeyHold(int key)
@@ -241,6 +234,8 @@ namespace VisualDebugger
 	//handle force control keys
 	void ForceInput(int key)
 	{
+		return;
+
 		if (!scene->GetSelectedActor())
 			return;
 
@@ -279,16 +274,19 @@ namespace VisualDebugger
 			//display control
 		case GLUT_KEY_F5:
 			//hud on/off
-			hud_show = !hud_show;
+			//hud_show = !hud_show;
 			break;
+
 		case GLUT_KEY_F6:
 			//shadows on/off
 			Renderer::ShowShadows(!Renderer::ShowShadows());
 			break;
+
 		case GLUT_KEY_F7:
 			//toggle render mode
 			ToggleRenderMode();
 			break;
+
 		case GLUT_KEY_F8:
 			//reset camera view
 			camera->Reset();
@@ -297,16 +295,19 @@ namespace VisualDebugger
 			//simulation control
 		case GLUT_KEY_F9:
 			//select next actor
-			scene->SelectNextActor();
+			//scene->SelectNextActor();
 			break;
+
 		case GLUT_KEY_F10:
 			//toggle scene pause
 			scene->Pause(!scene->Pause());
 			break;
+
 		case GLUT_KEY_F12:
 			//resect scene
-			scene->Reset();
+			//scene->Reset();
 			break;
+
 		default:
 			break;
 		}
