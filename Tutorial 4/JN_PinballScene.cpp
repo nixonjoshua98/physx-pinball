@@ -114,7 +114,6 @@ void JN_PinballScene::UpdateHUD()
 
 	HUD.AddLine(SIMULATION, "");
 	HUD.AddLine(SIMULATION, "");
-	HUD.AddLine(SIMULATION, "");
 
 	HUD.AddLine(SIMULATION, "F6   - Toggle Shadows");
 	HUD.AddLine(SIMULATION, "F7   - Toggle Render Mode");
