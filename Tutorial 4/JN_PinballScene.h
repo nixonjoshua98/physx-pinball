@@ -14,6 +14,8 @@
 
 #include "JN_SimulationCallback.h"
 
+#include <chrono>
+
 
 class JN_PinballScene : public JN_Scene
 {
@@ -25,7 +27,7 @@ public:
 
 	void SetVisualisation();
 
-	int balls_left = 3;
+	int ballsLeft = 3;
 
 	// Events
 	void OnKeyPressed(int key);
@@ -41,6 +43,10 @@ private:
 	JN_Sphere* ball;
 	JN_Plunger* plunger;
 	JN_Model* frame;
+
+	std::chrono::system_clock::time_point start;
+
+	int totalScore = 0;
 	
 	VisualDebugger::HUD HUD;
 

@@ -119,10 +119,10 @@ void JN_PinballScene::UpdateHUD()
 	HUD.AddLine(SIMULATION, "F8   - Reset Camera");
 	HUD.AddLine(SIMULATION, "F10 - Pause Simulation");
 	HUD.AddLine(SIMULATION, "");
-	HUD.AddLine(SIMULATION, "Score:        " + std::to_string(simulation_callback->score));
-	HUD.AddLine(SIMULATION, "Balls Left: " + std::to_string(balls_left));
+	HUD.AddLine(SIMULATION, "Score:        " + std::to_string(totalScore));
+	HUD.AddLine(SIMULATION, "Balls Left: " + std::to_string(ballsLeft));
 
-	if (balls_left == 0)
+	if (ballsLeft == 0)
 	{
 		HUD.AddLine(SIMULATION, " ");
 		HUD.AddLine(SIMULATION, "GAME OVER");
@@ -154,19 +154,29 @@ void JN_PinballScene::CustomInit()
 	CreatePaddles();
 	CreateBall();
 
+	start = std::chrono::system_clock::now();
+
 	// Interface
 	UpdateHUD();
 }
 
 void JN_PinballScene::CustomUpdate(PxReal delta)
 {
+	std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+
+	int seconds = std::chrono::duration<float>(now - start).count();
+
+	int timeScore = seconds * 10;
+
+	totalScore = simulation_callback->score + timeScore;
+
 	if (simulation_callback->dead_ball_trigger)
 	{
 		physics_scene->removeActor(*ball->Get());
 
-		balls_left--;
+		ballsLeft--;
 
-		if (balls_left > 0)
+		if (ballsLeft > 0)
 			CreateBall();
 	}
 }
@@ -184,11 +194,14 @@ void JN_PinballScene::OnKeyPressed(int key)
 
 		// P
 	case 80:
-		if (balls_left == 0)
+		if (ballsLeft == 0)
 		{
 			simulation_callback->score = 0;
 
-			balls_left = 3;
+			ballsLeft = 3;
+			totalScore = 0;
+
+			start = std::chrono::system_clock::now();
 
 			CreateBall();
 		}
