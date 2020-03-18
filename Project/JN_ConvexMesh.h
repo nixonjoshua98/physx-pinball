@@ -13,6 +13,8 @@ namespace Actors
 		JN_ConvexMesh(const std::vector<PxVec3>& verts, const PxTransform& pose = PxTransform(PxIdentity), PxReal density = 1.f) : DynamicActor(pose)
 		{
 			PxConvexMeshDesc mesh_desc;
+
+			// Points
 			mesh_desc.points.count = (PxU32)verts.size();
 			mesh_desc.points.stride = sizeof(PxVec3);
 			mesh_desc.points.data = &verts.front();

@@ -17,26 +17,24 @@ namespace Actors
 
 		Name("Paddle");
 
+		// Set colour of the object
 		Color(Helpers::RGB(255, 165, 0));
 
+		// This object is a paddle and can collide with balls
 		SetupFiltering(JN_FilterGroup::PADDLES, JN_FilterGroup::BALLS);
 
 		joint->SetLimits(-0.5f, 0.5f);
 	}
 
-	JN_Paddle::~JN_Paddle()
-	{
-
-	}
-
+	// Add the object to the scene
 	void JN_Paddle::AddToScene(JN_Scene* scene)
 	{
 		scene->Add(this);
 	}
-
+	
+	// Add force to the joint
 	void Actors::JN_Paddle::Activate(PxReal force)
 	{
 		joint->DriveVelocity(force);
 	}
-
 }

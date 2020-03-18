@@ -3,6 +3,8 @@
 #include "JN_Model.h"
 #include "JN_ModelLoader.h"
 
+// Taken from TriangleMesh
+
 JN_Model::JN_Model(std::string file, PxTransform pose) : StaticActor(pose)
 {
 	JN_ModelLoader loader(file);

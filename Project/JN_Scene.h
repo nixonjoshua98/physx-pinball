@@ -43,8 +43,10 @@ public:
 	// Get pause
 	bool Pause();
 
+	// Highlight
 	void HighlightActor(PxRigidDynamic* actor);
 
+	// Unhighlight
 	void UnHighlightActor(PxRigidDynamic* actor);
 
 	// Get the selected dynamic actor on the scene

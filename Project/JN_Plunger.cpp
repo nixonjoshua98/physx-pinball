@@ -9,29 +9,31 @@
 
 
 using namespace PhysicsEngine;
-using namespace Actors;
 
-
-JN_Plunger::JN_Plunger(PxTransform pose)
+namespace Actors
 {
-	box = new Box(pose, { 0.25f, 0.25f, 1.5 });
+	JN_Plunger::JN_Plunger(PxTransform pose)
+	{
+		box = new Box(pose, { 0.25f, 0.25f, 1.5 });
 
-	joint = PxD6JointCreate(*GetPhysics(), NULL, pose, box->Get()->is<PxRigidActor>(), PxTransform(PxVec3(0.f, 0.f, 0.f)));
+		joint = PxD6JointCreate(*GetPhysics(), NULL, pose, box->Get()->is<PxRigidActor>(), PxTransform(PxVec3(0.f, 0.f, 0.f)));
 
-	joint->setMotion(PxD6Axis::eZ, PxD6Motion::eLIMITED);
-	joint->setDrive(PxD6Drive::eZ, PxD6JointDrive(100.0f, 25.f, PX_MAX_F32, false));
+		// Limit the joint to the Z axis
+		joint->setMotion(PxD6Axis::eZ, PxD6Motion::eLIMITED);
+		joint->setDrive(PxD6Drive::eZ, PxD6JointDrive(100.0f, 25.f, PX_MAX_F32, false));
 
-	box->Color(Helpers::RGB(255, 191, 70));
+		box->Color(Helpers::RGB(255, 191, 70));
 
-	box->Name("Plunger");
-}
+		box->Name("Plunger");
+	}
 
-void JN_Plunger::Activate(PxReal force)
-{
-	box->AddForce({ 0, 0, force });
-}
+	void JN_Plunger::Activate(PxReal force)
+	{
+		box->AddForce({ 0, 0, force });
+	}
 
-void JN_Plunger::AddToScene(JN_Scene* scene)
-{
-	scene->Add(box);
+	void JN_Plunger::AddToScene(JN_Scene* scene)
+	{
+		scene->Add(box);
+	}
 }

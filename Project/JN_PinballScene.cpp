@@ -125,6 +125,7 @@ void JN_PinballScene::UpdateHUD()
 	HUD.AddLine(SIMULATION, "Score:        " + std::to_string(totalScore));
 	HUD.AddLine(SIMULATION, "Balls Left: " + std::to_string(ballsLeft));
 
+	// Game ended
 	if (ballsLeft == 0)
 	{
 		HUD.AddLine(SIMULATION, " ");

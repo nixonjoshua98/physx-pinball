@@ -4,16 +4,11 @@
 
 #include <string>
 
-class JN_PinballFrame
+class JN_PinballFrame: public JN_Model
 {
 public:
 	JN_PinballFrame();
 
 	void AddToScene(JN_Scene* scene);
-
-private:
-	JN_Model* model;
-
-	void Create();
 };
 

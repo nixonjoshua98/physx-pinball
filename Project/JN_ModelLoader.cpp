@@ -9,7 +9,6 @@
 JN_ModelLoader::JN_ModelLoader(std::string file)
 {
 	vertices = std::vector<PxVec3>();
-	indices = std::vector<PxU32>();
 
 	Load(file);
 }
@@ -65,8 +64,7 @@ void JN_ModelLoader::Load(std::string file)
 
 				for (unsigned int i = 0; i < results.size(); i += 3)
 				{
-					indices.push_back(std::stoi(results[i]) - 1);
-
+					// Obj starts at 1 so we need to -1 to it
 					indicesVector[objectID].push_back(std::stoi(results[i]) - 1);
 				}
 
@@ -81,15 +79,18 @@ void JN_ModelLoader::Load(std::string file)
 	}
 }
 
+// Perform regex string on a string
 std::vector<std::string> JN_ModelLoader::PerformRegex(std::string line, std::string regex, bool popFront)
 {
 	std::regex re(regex);
 
+	// Perform the regex expression
 	std::vector<std::string> result
 	{
 		std::sregex_token_iterator(line.begin(), line.end(), re, -1), {}
 	};
 
+	// Remove the first element is needed
 	if (popFront)
 		result.erase(result.begin());
 

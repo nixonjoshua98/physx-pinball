@@ -9,11 +9,15 @@ namespace Actors
 		Name(name);
 
 		SetTrigger(true);
+
+		// Stop the trigger from moving
 		SetKinematic(true);
 
+		// Disables the object from being rendered
 		GetShape(0)->setFlag(PxShapeFlag::eVISUALIZATION, false);
 	}
 
+	// Adds the object to the scene
 	void JN_TriggerBox::AddToScene(JN_Scene* scene)
 	{
 		scene->Add(this);

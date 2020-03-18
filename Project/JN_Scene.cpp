@@ -5,6 +5,7 @@
 
 #include <iostream>
 
+// Custom filter shader
 static PxFilterFlags CustomFilterShader(
 	PxFilterObjectAttributes attributes0, PxFilterData filterData0,
 	PxFilterObjectAttributes attributes1, PxFilterData filterData1,

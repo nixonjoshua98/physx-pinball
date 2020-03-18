@@ -22,9 +22,6 @@ class JN_PinballScene : public JN_Scene
 public:
 	JN_PinballScene();
 
-	const float FRAME_LENGTH	= 15.0f;
-	const float FRAME_WIDTH		= 8.0f;
-
 	void SetVisualisation();
 
 	int ballsLeft = 3;
@@ -52,6 +49,7 @@ private:
 
 	JN_Paddle* paddles[2];
 
+	// Object creation
 	void CreatePlane();
 	void CreateBall();
 	void CreateFrame();

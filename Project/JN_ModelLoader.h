@@ -16,14 +16,14 @@ public:
 	~JN_ModelLoader();
 
 	std::vector<PxVec3> vertices;
-	std::vector<PxU32> indices;
 
+	// Store the indices for each object
 	std::map<int, std::vector<PxU32>> indicesVector;
 
 private:
 	void Load(std::string file);
 
-	// Perform RE expression on string
+	// Perform regular expression on string
 	std::vector<std::string> PerformRegex(std::string line, std::string regex, bool popFront);
 };
 

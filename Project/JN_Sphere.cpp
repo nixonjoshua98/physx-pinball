@@ -13,6 +13,7 @@ namespace Actors
 
 		Name("Ball");
 
+		// Setup the collision group so the ball can hit the hexagons, spinners, etc.
 		SetupFiltering(JN_FilterGroup::BALLS, JN_FilterGroup::HEXAGONS | JN_FilterGroup::SPINNERS | JN_FilterGroup::PADDLES);
 	}
 }
