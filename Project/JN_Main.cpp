@@ -4,6 +4,9 @@
 using namespace std;
 
 /*
+	- GitHub (made public at submission)
+		- https://github.com/nixonjoshua98/physx-pinball
+
 	- HUD <JN_PinballScene::CustomRender>
 		- Shows controls, score, and a basic 'Game Over' text when the game ends
 
