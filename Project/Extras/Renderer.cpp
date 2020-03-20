@@ -304,7 +304,7 @@ namespace VisualDebugger
 					{
 						const PxShape* shape = shapes[j];
 
-						// Invisible Object
+						// Ignore objects with this flag (the triggers)
 						if (!shape->getFlags().isSet(PxShapeFlag::eVISUALIZATION))
 						{
 							continue;

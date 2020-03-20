@@ -14,7 +14,7 @@ namespace Actors
 		SetKinematic(true);
 
 		// Disables the object from being rendered
-		GetShape(0)->setFlag(PxShapeFlag::eVISUALIZATION, false);
+		//GetShape(0)->setFlag(PxShapeFlag::eVISUALIZATION, false);
 	}
 
 	// Adds the object to the scene

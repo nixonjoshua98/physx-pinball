@@ -70,7 +70,7 @@
     <ClCompile Include="JN_TriggerBox.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
     <ClCompile Include="VisualDebugger.cpp" />
-    <ClCompile Include="Tutorial 4.cpp" />
+    <ClCompile Include="JN_Main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{60A30BB9-180C-4C50-AD2C-C519A11E1AFE}</ProjectGuid>
