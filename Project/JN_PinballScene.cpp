@@ -7,6 +7,7 @@
 #include "JN_Functions.h"
 #include "JN_Spinner.h"
 #include "JN_Model.h"
+#include "JN_Cloth.h"
 
 #include "JN_TriggerBox.h"
 
@@ -74,6 +75,24 @@ void JN_PinballScene::CreatePaddles()
 
 	paddles[0]->AddToScene(this);
 	paddles[1]->AddToScene(this);
+}
+
+void JN_PinballScene::CreateCloth()
+{
+	std::vector<PxVec3> positions{
+	{ 4, 5.75, 0 },
+	};
+
+	for (PxVec3 v : positions)
+	{
+		JN_Cloth* cloth = new JN_Cloth(PxTransform(v), { 0.5, 0.5 }, 40, 40, true);
+
+		cloth->Color(Helpers::RGB(217, 0, 0));
+
+		Add(cloth);
+
+		cloth->Get()->is<PxCloth>()->setStretchConfig(PxClothFabricPhaseType::eBENDING, PxClothStretchConfig(1.f));
+	}
 }
 
 void JN_PinballScene::CreateHexagons()
@@ -156,6 +175,7 @@ void JN_PinballScene::CustomInit()
 	CreateHexagons();
 	CreatePlunger();
 	CreatePaddles();
+	CreateCloth();
 	CreateBall();
 
 	start = std::chrono::system_clock::now();
@@ -187,7 +207,7 @@ void JN_PinballScene::CustomUpdate(PxReal delta)
 
 void JN_PinballScene::OnKeyPressed(int key)
 {
-	std::cout << key << std::endl;
+	//std::cout << key << std::endl;
 
 	switch (key)
 	{

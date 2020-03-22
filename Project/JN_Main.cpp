@@ -4,9 +4,6 @@
 using namespace std;
 
 /*
-	- GitHub (made public at submission)
-		- https://github.com/nixonjoshua98/physx-pinball
-
 	- HUD <JN_PinballScene::CustomRender>
 		- Shows controls, score, and a basic 'Game Over' text when the game ends
 
@@ -21,14 +18,20 @@ using namespace std;
 		- Allow for hidden/non-rendered shapes - Used to hide the triggers and frame roof
 
 	- <JN_TriggerBox> - Invisible box trigger
-		- Want to see the triggers? Comment out <JN_TriggerBox.cppline 17> and you will see a white rectangle at the bottom of the frame
+		- Want to see the triggers? Comment out <JN_TriggerBox.cpp line 17> and you will see a white rectangle at the bottom of the frame
 
-	- RevoluteJoint 'motor - <JN_Spinner>
+	- RevoluteJoint 'motor' - <JN_Spinner>
 		- Constant spinning object
 
 	- <JN_Paddle>
 		- Controllable paddles which use a RevoluteJoint to rotate
-		- Has a rotation limit, for example, they cannot do a full spin
+		- Rrotation limit, for example, they cannot do a full spin
+
+	- Cloth
+		- JN_PinballScene::CreateCloth - Would have had more cloth but it lags even my RTX card when I have too many
+
+	- JN_Plunger
+		- D6 joint limited to the z-axis
 
 	- Score system
 		- Gain points by hitting hexagons, paddles and spinners
@@ -40,7 +43,7 @@ using namespace std;
 			- <JN_Sphere::JN_Sphere> SetupFiltering(JN_FilterGroup::BALLS, JN_FilterGroup::HEXAGONS | JN_FilterGroup::SPINNERS | JN_FilterGroup::PADDLES);
 			- <JN_Paddle::JN_Paddle> SetupFiltering(JN_FilterGroup::PADDLES, JN_FilterGroup::BALLS);
 
-	- Model loader - <JN_ModelLoader/JN_Model>:
+	- Model loader - TriangleMesh - <JN_ModelLoader/JN_Model>
 		- File format: http://paulbourke.net/dataformats/obj/
 		- Parses and cooks triangulated .obj files
 		- Creates a compound object from the parsed data - not just one single mesh

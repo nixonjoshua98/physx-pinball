@@ -149,6 +149,7 @@ namespace VisualDebugger
 		if ((render_mode == NORMAL) || (render_mode == BOTH))
 		{
 			std::vector<PxActor*> actors = scene->GetAllActors();
+
 			if (actors.size())
 				Renderer::Render(&actors[0], (PxU32)actors.size());
 		}

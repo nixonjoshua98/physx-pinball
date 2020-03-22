@@ -54,6 +54,7 @@ private:
 	void CreateBall();
 	void CreateFrame();
 	void CreatePaddles();
+	void CreateCloth();
 	void CreateHexagons();
 	void CreatePlunger();
 	void CreateSpinners();

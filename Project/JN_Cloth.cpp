@@ -2,14 +2,14 @@
 
 
 
-Jn_Cloth::Jn_Cloth(PxTransform pose, const PxVec2& size, PxU32 width, PxU32 height, bool fix_top)
+JN_Cloth::JN_Cloth(PxTransform pose, const PxVec2& size, PxU32 width, PxU32 height, bool fix_top)
 {
-	// Prepare vertices
+	//prepare vertices
 	PxReal w_step = size.x / width;
 	PxReal h_step = size.y / height;
 
 	PxClothParticle* vertices = new PxClothParticle[(width + 1) * (height + 1) * 4];
-	PxU32* quads = new PxU32[width * height * 4];
+	PxU32 * quads = new PxU32[width * height * 4];
 
 	for (PxU32 j = 0; j < (height + 1); j++)
 	{
@@ -17,9 +17,7 @@ Jn_Cloth::Jn_Cloth(PxTransform pose, const PxVec2& size, PxU32 width, PxU32 heig
 		{
 			PxU32 offset = i + j * (width + 1);
 			vertices[offset].pos = PxVec3(w_step * i, 0.f, h_step * j);
-
-			// Fix the top row of vertices
-			if (fix_top && (j == 0))
+			if (fix_top && (j == 0)) //fix the top row of vertices
 				vertices[offset].invWeight = 0.f;
 			else
 				vertices[offset].invWeight = 1.f;
@@ -38,7 +36,7 @@ Jn_Cloth::Jn_Cloth(PxTransform pose, const PxVec2& size, PxU32 width, PxU32 heig
 		}
 	}
 
-	// Init cloth mesh description
+	//init cloth mesh description
 	mesh_desc.points.data = vertices;
 	mesh_desc.points.count = (width + 1) * (height + 1);
 	mesh_desc.points.stride = sizeof(PxClothParticle);
@@ -51,13 +49,13 @@ Jn_Cloth::Jn_Cloth(PxTransform pose, const PxVec2& size, PxU32 width, PxU32 heig
 	mesh_desc.quads.count = width * height;
 	mesh_desc.quads.stride = sizeof(PxU32) * 4;
 
-	// Create cloth fabric (cooking)
+	//create cloth fabric (cooking)
 	PxClothFabric * fabric = PxClothFabricCreate(*GetPhysics(), mesh_desc, PxVec3(0, -1, 0));
 
-	// Create cloth
+	//create cloth
 	actor = (PxActor*)GetPhysics()->createCloth(pose, *fabric, vertices, PxClothFlags());
 
-	//Collisions with the scene objects
+	//collisions with the scene objects
 	((PxCloth*)actor)->setClothFlag(PxClothFlag::eSCENE_COLLISION, true);
 
 	colors.push_back(default_color);
@@ -65,7 +63,7 @@ Jn_Cloth::Jn_Cloth(PxTransform pose, const PxVec2& size, PxU32 width, PxU32 heig
 	actor->userData = new UserData(&colors.back(), &mesh_desc);
 }
 
-Jn_Cloth::~Jn_Cloth()
+JN_Cloth::~JN_Cloth()
 {
 	delete (UserData*)actor->userData;
 }

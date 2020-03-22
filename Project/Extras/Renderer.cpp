@@ -290,7 +290,6 @@ namespace VisualDebugger
 		{
 			PxVec3 shadow_color = default_color * 0.9;
 			for (PxU32 i = 0; i < numActors; i++) {
-
 				if (actors[i]->is<PxCloth>()) {
 					RenderCloth((PxCloth*)actors[i]);
 				}
@@ -365,7 +364,7 @@ namespace VisualDebugger
 				}
 
 				}
-				}
+		}
 
 		void Finish()
 		{

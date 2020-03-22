@@ -27,7 +27,7 @@ namespace Actors
 		void Material(PxMaterial* new_material, PxU32 shape_index = -1);
 		PxShape* GetShape(PxU32 index = 0);
 		std::vector<PxShape*> Actor::GetShapes(PxU32 index = -1);
-		virtual void CreateShape(const PxGeometry& geometry, PxReal density) = 0;
+		virtual void CreateShape(const PxGeometry& geometry, PxReal density) {};
 		void SetTrigger(bool value, PxU32 index = -1);
 		void SetupFiltering(PxU32 filterGroup, PxU32 filterMask, PxU32 shape_index = -1);
 	};
